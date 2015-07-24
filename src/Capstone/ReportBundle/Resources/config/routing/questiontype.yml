@@ -1,0 +1,30 @@
+questiontype:
+    path:     /
+    defaults: { _controller: "ReportBundle:Questiontype:index" }
+
+questiontype_show:
+    path:     /{id}/show
+    defaults: { _controller: "ReportBundle:Questiontype:show" }
+
+questiontype_new:
+    path:     /new
+    defaults: { _controller: "ReportBundle:Questiontype:new" }
+
+questiontype_create:
+    path:     /create
+    defaults: { _controller: "ReportBundle:Questiontype:create" }
+    methods:  POST
+
+questiontype_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ReportBundle:Questiontype:edit" }
+
+questiontype_update:
+    path:     /{id}/update
+    defaults: { _controller: "ReportBundle:Questiontype:update" }
+    methods:  [POST, PUT]
+
+questiontype_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ReportBundle:Questiontype:delete" }
+    methods:  [POST, DELETE]

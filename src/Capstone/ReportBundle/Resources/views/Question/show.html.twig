@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Question</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Questionid</th>
+                <td>{{ entity.questionId }}</td>
+            </tr>
+            <tr>
+                <th>Points</th>
+                <td>{{ entity.points }}</td>
+            </tr>
+            <tr>
+                <th>Difficulty</th>
+                <td>{{ entity.difficulty }}</td>
+            </tr>
+            <tr>
+                <th>Linkedquestions</th>
+                <td>{{ entity.linkedQuestions }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ entity.question }}</td>
+            </tr>
+            <tr>
+                <th>Answer</th>
+                <td>{{ entity.answer }}</td>
+            </tr>
+            <tr>
+                <th>Mostcorrectanswer</th>
+                <td>{{ entity.mostCorrectAnswer }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('question') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('question_edit', { 'id': entity.questionId }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,65 @@
+Capstone\ReportBundle\Entity\Question:
+    type: entity
+    table: Question
+    indexes:
+        question_type:
+            columns:
+                - question_type
+    id:
+        questionId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: question_ID
+            generator:
+                strategy: IDENTITY
+    fields:
+        points:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        difficulty:
+            type: string
+            nullable: true
+            length: 1
+            fixed: true
+            comment: ''
+        linkedQuestions:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: linked_questions
+        question:
+            type: blob
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        answer:
+            type: string
+            nullable: true
+            length: 1
+            fixed: true
+            comment: ''
+        mostCorrectAnswer:
+            type: string
+            nullable: true
+            length: 1
+            fixed: true
+            comment: ''
+            column: most_correct_answer
+    manyToOne:
+        questionType:
+            targetEntity: Questiontype
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                question_type:
+                    referencedColumnName: question_type
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

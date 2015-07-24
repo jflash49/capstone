@@ -1,0 +1,28 @@
+Capstone\ReportBundle\Entity\Quiz:
+    type: entity
+    table: Quiz
+    indexes:
+        UserID:
+            columns:
+                - UserID
+    id:
+        quiznum:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: quizNum
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        userid:
+            targetEntity: User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                UserID:
+                    referencedColumnName: UserID
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

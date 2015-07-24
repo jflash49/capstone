@@ -1,3 +1,17 @@
+report_question:
+    resource: "@ReportBundle/Resources/config/routing/question.yml"
+    prefix:   /question
+
+report_questiontype:
+    resource: "@ReportBundle/Resources/config/routing/questiontype.yml"
+    prefix:   /questiontype
+
+
+
+report_classification:
+    resource: "@ReportBundle/Resources/config/routing/classification.yml"
+    prefix:   /classification
+
 report_homepage:
     path:     /report/{name}
     defaults: { _controller: ReportBundle:Default:index }

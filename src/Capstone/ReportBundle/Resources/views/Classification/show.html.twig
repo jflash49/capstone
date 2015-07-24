@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Classification</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Classificationiq</th>
+                <td>{{ entity.classificationIq }}</td>
+            </tr>
+            <tr>
+                <th>Classify</th>
+                <td>{{ entity.classify }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('classification') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('classification_edit', { 'id': entity.classificationIq }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,42 @@
+Capstone\ReportBundle\Entity\UserInfo:
+    type: entity
+    table: null
+    repositoryClass: Capstone\ReportBundle\Entity\UserInfoRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: 255
+            column: FirstName
+        lastName:
+            type: string
+            length: 255
+            column: LastName
+        birthdate:
+            type: date
+            column: Birthdate
+        gender:
+            type: string
+            length: '2'
+            column: Gender
+        school:
+            type: string
+            length: 255
+            column: School
+        class:
+            type: string
+            length: 255
+            column: Class
+        parish:
+            type: string
+            length: 255
+            column: Parish
+        iQ:
+            type: integer
+            column: IQ
+    lifecycleCallbacks: {  }
