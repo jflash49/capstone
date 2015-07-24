@@ -1,3 +1,7 @@
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 report:
     resource: "@ReportBundle/Resources/config/routing.yml"
     prefix:   /
