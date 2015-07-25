@@ -38,7 +38,9 @@ class QuestionController extends Controller
         $entity = new Question();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+	   $group = $this->getDoctrine()->getManager()->getRepository('ReportBundle:QuestionType')-> findAll ();
+	   var_dump ($group); die;
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -50,6 +52,7 @@ class QuestionController extends Controller
         return $this->render('ReportBundle:Question:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'group' =>  $group,
         ));
     }
 

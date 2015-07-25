@@ -32,4 +32,15 @@ class Questiontype
     {
         return $this->questionType;
     }
+    
+    /**
+     *
+     * @return string
+     */
+     public function __toString()
+     {
+		return (string) $this->getQuestionType();
+     }
+    
+    
 }

@@ -43,4 +43,5 @@ Capstone\ReportBundle\Entity\User:
             length: 255
             fixed: false
             comment: ''
+              
     lifecycleCallbacks: {  }

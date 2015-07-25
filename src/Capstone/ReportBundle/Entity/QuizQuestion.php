@@ -6,16 +6,34 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * QuizQuestion
+ *@ORM\Table(name="Quiz", indexes={@ORM\Index(name="quiznum", 
+columns={"quiznum"}), @ORM\Index(name="question_ID", columns={"question_ID"})})
  */
 class QuizQuestion
 {
-    /**
+     /**
      * @var integer
      */
-    private $id;
+     private $id;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Capstone\ReportBundle\Entity\Quiz")
+     * @ORM\JoinColumns ({ 
+     * @ORM\JoinColumn (name="quiznum", referencedColumnName="quiznum"))
+* })
+     */
+    private $quiznum;
 
     /**
      * @var integer
+     * 
+     *@ORM\ManyToOne(targetEntity="Capstone\ReportBundle\Entity\Question")
+     * @ORM\JoinColumns ({ 
+     * @ORM\JoinColumn (name="question_ID", 
+     referencedColumnName="question_ID"))
+	* })
      */
     private $questionID;
 

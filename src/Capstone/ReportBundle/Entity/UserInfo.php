@@ -6,21 +6,30 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UserInfo
+ *
+ * @ORM\Table(name="UserInfo")
+ * @ORM\Entity
  */
 class UserInfo
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="UserID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstName;
 
     /**
      * @var string
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
     private $lastName;
 
@@ -53,8 +62,7 @@ class UserInfo
      * @var integer
      */
     private $iQ;
-
-
+	
     /**
      * Get id
      *
@@ -248,4 +256,27 @@ class UserInfo
     {
         return $this->iQ;
     }
+    /**
+     * Set userid
+     *
+     * @param \Capstone\ReportBundle\Entity\User $userid
+     * @return Quiz
+     */
+    public function setUserid(\Capstone\ReportBundle\Entity\User $userid = null)
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return \Capstone\ReportBundle\Entity\User 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+    
 }

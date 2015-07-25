@@ -65,4 +65,13 @@ class Quiz
     {
         return $this->userid;
     }
+    /**
+	*
+	*@return String
+	*/
+	public function __toString()
+	{
+	
+		return (string)$this->getUserid();
+	}
 }

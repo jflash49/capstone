@@ -50,7 +50,6 @@ class User
     private $roles;
 
 
-
     /**
      * Get userid
      *

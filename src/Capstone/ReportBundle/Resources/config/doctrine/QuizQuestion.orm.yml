@@ -1,6 +1,6 @@
 Capstone\ReportBundle\Entity\QuizQuestion:
     type: entity
-    table: null
+    table: QuizQuestion
     repositoryClass: Capstone\ReportBundle\Entity\QuizQuestionRepository
     id:
         id:

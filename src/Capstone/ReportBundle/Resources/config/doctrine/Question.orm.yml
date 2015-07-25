@@ -55,7 +55,7 @@ Capstone\ReportBundle\Entity\Question:
     manyToOne:
         questionType:
             targetEntity: Questiontype
-            cascade: {  }
+            cascade: {   }
             mappedBy: null
             inversedBy: null
             joinColumns:
