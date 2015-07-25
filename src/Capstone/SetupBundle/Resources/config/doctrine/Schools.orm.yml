@@ -1,0 +1,106 @@
+Capstone\SetupBundle\Entity\Schools:
+    type: entity
+    table: schools
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID
+            generator:
+                strategy: IDENTITY
+    fields:
+        clarendon:
+            type: string
+            nullable: true
+            length: 44
+            fixed: false
+            comment: ''
+            column: CLARENDON
+        trelawny:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: ''
+            column: TRELAWNY
+        saintStThomas:
+            type: string
+            nullable: true
+            length: 42
+            fixed: false
+            comment: ''
+            column: SAINT_ST_THOMAS
+        saintStMary:
+            type: string
+            nullable: true
+            length: 33
+            fixed: false
+            comment: ''
+            column: SAINT_ST_MARY
+        westmoreland:
+            type: string
+            nullable: true
+            length: 37
+            fixed: false
+            comment: ''
+            column: WESTMORELAND
+        saintElizabeth:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: ''
+            column: SAINT_ELIZABETH
+        saintJames:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: SAINT_JAMES
+        saintCatherine:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: SAINT_CATHERINE
+        hanover:
+            type: string
+            nullable: true
+            length: 34
+            fixed: false
+            comment: ''
+            column: HANOVER
+        kingstonStandrew:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: KINGSTON_STANDREW
+        manchester:
+            type: string
+            nullable: true
+            length: 41
+            fixed: false
+            comment: ''
+            column: MANCHESTER
+        portland:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: PORTLAND
+        saintAnn:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: SAINT_ANN
+    lifecycleCallbacks: {  }

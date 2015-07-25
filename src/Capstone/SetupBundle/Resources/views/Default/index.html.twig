@@ -1,0 +1,23 @@
+{#  src/Capstone/SetupBundle/Resources/views/Default/index.html.twig#}
+{% extends '::base.html.twig' %}
+{% block title %} Setup {% endblock %}
+{% block body %}
+<div>
+<div>
+<h1>Setup</h1>
+</div>
+<div>
+	<ul>
+		<li> <a href="{{path ('classification') }}"> Classification </a>
+		</li>
+		<li> <a href="{{path ('question') }}"> Question </a>
+		</li>
+		<li> <a href="{{path ('questiontype') }}"> Question Type </a>
+		</li>
+		<li> <a href="{{path ('school') }}"> School </a>
+		</li>
+		
+    </ul>
+    </div>
+    </div>
+{% endblock %}

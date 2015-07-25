@@ -1,0 +1,21 @@
+setup_school:
+    resource: "@SetupBundle/Resources/config/routing/school.yml"
+    prefix:   /school
+
+setup_question:
+    resource: "@SetupBundle/Resources/config/routing/question.yml"
+    prefix:   /question
+
+setup_questiontype:
+    resource: "@SetupBundle/Resources/config/routing/questiontype.yml"
+    prefix:   /questiontype
+
+
+
+setup_classification:
+    resource: "@SetupBundle/Resources/config/routing/classification.yml"
+    prefix:   /classification
+
+setup_homepage:
+    path:     /
+    defaults: { _controller: SetupBundle:Default:index }

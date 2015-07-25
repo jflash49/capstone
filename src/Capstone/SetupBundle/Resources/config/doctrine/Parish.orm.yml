@@ -1,0 +1,21 @@
+Capstone\SetupBundle\Entity\Parish:
+    type: entity
+    table: parish
+    id:
+        parishId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: parish_ID
+            generator:
+                strategy: IDENTITY
+    fields:
+        parish:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

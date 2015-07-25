@@ -1,0 +1,30 @@
+classification:
+    path:     /
+    defaults: { _controller: "SetupBundle:Classification:index" }
+
+classification_show:
+    path:     /{id}/show
+    defaults: { _controller: "SetupBundle:Classification:show" }
+
+classification_new:
+    path:     /new
+    defaults: { _controller: "SetupBundle:Classification:new" }
+
+classification_create:
+    path:     /create
+    defaults: { _controller: "SetupBundle:Classification:create" }
+    methods:  POST
+
+classification_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SetupBundle:Classification:edit" }
+
+classification_update:
+    path:     /{id}/update
+    defaults: { _controller: "SetupBundle:Classification:update" }
+    methods:  [POST, PUT]
+
+classification_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SetupBundle:Classification:delete" }
+    methods:  [POST, DELETE]

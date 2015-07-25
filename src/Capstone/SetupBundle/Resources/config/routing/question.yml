@@ -1,0 +1,30 @@
+question:
+    path:     /
+    defaults: { _controller: "SetupBundle:Question:index" }
+
+question_show:
+    path:     /{id}/show
+    defaults: { _controller: "SetupBundle:Question:show" }
+
+question_new:
+    path:     /new
+    defaults: { _controller: "SetupBundle:Question:new" }
+
+question_create:
+    path:     /create
+    defaults: { _controller: "SetupBundle:Question:create" }
+    methods:  POST
+
+question_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SetupBundle:Question:edit" }
+
+question_update:
+    path:     /{id}/update
+    defaults: { _controller: "SetupBundle:Question:update" }
+    methods:  [POST, PUT]
+
+question_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SetupBundle:Question:delete" }
+    methods:  [POST, DELETE]

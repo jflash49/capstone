@@ -1,0 +1,18 @@
+Capstone\SetupBundle\Entity\QuizQuestion:
+    type: entity
+    table: QuizQuestion
+    repositoryClass: Capstone\SetupBundle\Entity\QuizQuestionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        questionID:
+            type: integer
+            column: question_ID
+        answer:
+            type: string
+            length: '2'
+    lifecycleCallbacks: {  }

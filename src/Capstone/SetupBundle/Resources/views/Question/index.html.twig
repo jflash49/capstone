@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Question list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Questionid</th>
+                <th>Points</th>
+                <th>Difficulty</th>
+                <th>Linkedquestions</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Mostcorrectanswer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('question_show', { 'id': entity.questionId }) }}">{{ entity.questionId }}</a></td>
+                <td>{{ entity.points }}</td>
+                <td>{{ entity.difficulty }}</td>
+                <td>{{ entity.linkedQuestions }}</td>
+                <td>{{ entity.question }}</td>
+                <td>{{ entity.answer }}</td>
+                <td>{{ entity.mostCorrectAnswer }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('question_show', { 'id': entity.questionId }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('question_edit', { 'id': entity.questionId }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('question_new') }}">
+                Create a new entry
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('setup_homepage') }}">
+			Back
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
