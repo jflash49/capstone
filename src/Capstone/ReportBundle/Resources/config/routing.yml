@@ -1,3 +1,7 @@
+report_school:
+    resource: "@ReportBundle/Resources/config/routing/school.yml"
+    prefix:   /school
+
 report_question:
     resource: "@ReportBundle/Resources/config/routing/question.yml"
     prefix:   /question

@@ -5,66 +5,65 @@ namespace Capstone\ReportBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Capstone\ReportBundle\Entity\Question;
-use Capstone\ReportBundle\Form\QuestionType;
+use Capstone\ReportBundle\Entity\School;
+use Capstone\ReportBundle\Form\SchoolType;
 
 /**
- * Question controller.
+ * School controller.
  *
  */
-class QuestionController extends Controller
+class SchoolController extends Controller
 {
 
     /**
-     * Lists all Question entities.
+     * Lists all School entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('ReportBundle:Question')->findAll();
+        $entities = $em->getRepository('ReportBundle:School')->findAll();
 
-        return $this->render('ReportBundle:Question:index.html.twig', array(
+        return $this->render('ReportBundle:School:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Question entity.
+     * Creates a new School entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Question();
+        $entity = new School();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-     
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('question_show', array('id' => $entity->getQuestionId())));
+            return $this->redirect($this->generateUrl('school_show', array('id' => $entity->getSchoolId())));
         }
 
-        return $this->render('ReportBundle:Question:new.html.twig', array(
+        return $this->render('ReportBundle:School:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-
         ));
     }
 
     /**
-     * Creates a form to create a Question entity.
+     * Creates a form to create a School entity.
      *
-     * @param Question $entity The entity
+     * @param School $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Question $entity)
+    private function createCreateForm(School $entity)
     {
-        $form = $this->createForm(new QuestionType(), $entity, array(
-            'action' => $this->generateUrl('question_create'),
+        $form = $this->createForm(new SchoolType(), $entity, array(
+            'action' => $this->generateUrl('school_create'),
             'method' => 'POST',
         ));
 
@@ -74,60 +73,60 @@ class QuestionController extends Controller
     }
 
     /**
-     * Displays a form to create a new Question entity.
+     * Displays a form to create a new School entity.
      *
      */
     public function newAction()
     {
-        $entity = new Question();
+        $entity = new School();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('ReportBundle:Question:new.html.twig', array(
+        return $this->render('ReportBundle:School:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Question entity.
+     * Finds and displays a School entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ReportBundle:Question')->find($id);
+        $entity = $em->getRepository('ReportBundle:School')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
+            throw $this->createNotFoundException('Unable to find School entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('ReportBundle:Question:show.html.twig', array(
+        return $this->render('ReportBundle:School:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Question entity.
+     * Displays a form to edit an existing School entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ReportBundle:Question')->find($id);
+        $entity = $em->getRepository('ReportBundle:School')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
+            throw $this->createNotFoundException('Unable to find School entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('ReportBundle:Question:edit.html.twig', array(
+        return $this->render('ReportBundle:School:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -135,16 +134,16 @@ class QuestionController extends Controller
     }
 
     /**
-    * Creates a form to edit a Question entity.
+    * Creates a form to edit a School entity.
     *
-    * @param Question $entity The entity
+    * @param School $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Question $entity)
+    private function createEditForm(School $entity)
     {
-        $form = $this->createForm(new QuestionType(), $entity, array(
-            'action' => $this->generateUrl('question_update', array('id' => $entity->getQuestionId())),
+        $form = $this->createForm(new SchoolType(), $entity, array(
+            'action' => $this->generateUrl('school_update', array('id' => $entity->getSchoolId())),
             'method' => 'PUT',
         ));
 
@@ -153,17 +152,17 @@ class QuestionController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Question entity.
+     * Edits an existing School entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ReportBundle:Question')->find($id);
+        $entity = $em->getRepository('ReportBundle:School')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
+            throw $this->createNotFoundException('Unable to find School entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -173,17 +172,17 @@ class QuestionController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('question_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('school_edit', array('id' => $id)));
         }
 
-        return $this->render('ReportBundle:Question:edit.html.twig', array(
+        return $this->render('ReportBundle:School:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Question entity.
+     * Deletes a School entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -193,21 +192,21 @@ class QuestionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ReportBundle:Question')->find($id);
+            $entity = $em->getRepository('ReportBundle:School')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Question entity.');
+                throw $this->createNotFoundException('Unable to find School entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('question'));
+        return $this->redirect($this->generateUrl('school'));
     }
 
     /**
-     * Creates a form to delete a Question entity by id.
+     * Creates a form to delete a School entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -216,7 +215,7 @@ class QuestionController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('question_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('school_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
