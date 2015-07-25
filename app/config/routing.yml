@@ -1,6 +1,10 @@
+report:
+    resource: "@ReportBundle/Resources/config/routing.yml"
+    prefix:   /admin/report
+
 quiz:
     resource: "@QuizBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /quiz
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
@@ -8,7 +12,7 @@ user:
 
 setup:
     resource: "@SetupBundle/Resources/config/routing.yml"
-    prefix:   /admin/setup
+    prefix:   /admin/
 
 app:
     resource: "@AppBundle/Controller/"

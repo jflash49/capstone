@@ -1,6 +1,6 @@
 <?php
 
-namespace Capstone\QuizBundle\Controller;
+namespace Capstone\ReportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('QuizBundle:Default:index.html.twig');
+        return $this->render('ReportBundle:Default:index.html.twig');
     }
 }

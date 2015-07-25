@@ -10,12 +10,10 @@ setup_questiontype:
     resource: "@SetupBundle/Resources/config/routing/questiontype.yml"
     prefix:   /questiontype
 
-
-
 setup_classification:
     resource: "@SetupBundle/Resources/config/routing/classification.yml"
     prefix:   /classification
 
 setup_homepage:
-    path:     /
+    path:     /setup/
     defaults: { _controller: SetupBundle:Default:index }
