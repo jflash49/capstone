@@ -47,6 +47,10 @@ Capstone\SetupBundle\Entity\UserInfo:
             type: integer
             column: IQ
             nullable: true
-    
+    oneToOne:
+        owner:
+            targetEntity: User
+            joinColumn:
+               referencedColumnName: userid
                
     lifecycleCallbacks: {  }

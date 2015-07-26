@@ -9,6 +9,9 @@ Capstone\SetupBundle\Entity\QuizQuestion:
             generator:
                 strategy: AUTO
     fields:
+        quiznum:
+            type: integer
+            column: quiznum
         questionID:
             type: integer
             column: question_ID

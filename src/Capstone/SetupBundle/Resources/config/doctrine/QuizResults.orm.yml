@@ -15,4 +15,9 @@ Capstone\SetupBundle\Entity\QuizResults:
         incorrectQuestions:
             type: integer
             column: incorrect_questions
+    oneToOne:
+        quiznum:
+            targetEntity: Quiz
+            joinColumn:
+               referencedColumnName: quiznum
     lifecycleCallbacks: {  }

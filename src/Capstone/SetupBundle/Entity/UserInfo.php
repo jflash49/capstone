@@ -64,6 +64,13 @@ class UserInfo
     private $iQ;
 	
     /**
+	*@ORM\OneToOne(targetEntity="Capstone\SetupBundle\Entity\User)
+	*
+	*/
+	private $owner;
+	
+	
+    /**
      * Get id
      *
      * @return integer 

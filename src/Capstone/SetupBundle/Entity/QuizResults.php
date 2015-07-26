@@ -23,7 +23,12 @@ class QuizResults
      * @var integer
      */
     private $incorrectQuestions;
-
+	/**
+     * @var integer
+     * @ORM\OneToOne (targetEntity="Capstone/SetupBundle/Entity/Quiz")
+     *
+     */
+    private $quiznum;
 
     /**
      * Get id
