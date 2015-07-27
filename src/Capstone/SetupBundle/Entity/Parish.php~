@@ -62,4 +62,14 @@ class Parish
     {
         return $this->parish;
     }
+    
+    /**
+     *
+     *Get Parish
+     *@return parish
+     */
+     public function __toString()
+     {
+		return (string) $this->getParish();
+     }
 }

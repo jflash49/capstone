@@ -43,5 +43,10 @@ Capstone\SetupBundle\Entity\User:
             length: 255
             fixed: false
             comment: ''
-              
+    oneToOne:
+        info:
+            targetEntity: Capstone\SetupBundle\Entity\UserInfo
+            joinColumn:
+               name : info_id
+               referencedColumnName: id
     lifecycleCallbacks: {  }

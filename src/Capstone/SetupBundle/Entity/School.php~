@@ -39,4 +39,60 @@ class School
     private $parish;
 
 
+
+    /**
+     * Get schoolId
+     *
+     * @return integer 
+     */
+    public function getSchoolId()
+    {
+        return $this->schoolId;
+    }
+
+    /**
+     * Set school
+     *
+     * @param string $school
+     * @return School
+     */
+    public function setSchool($school)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return string 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+
+    /**
+     * Set parish
+     *
+     * @param \Capstone\SetupBundle\Entity\Parish $parish
+     * @return School
+     */
+    public function setParish(\Capstone\SetupBundle\Entity\Parish $parish = null)
+    {
+        $this->parish = $parish;
+
+        return $this;
+    }
+
+    /**
+     * Get parish
+     *
+     * @return \Capstone\SetupBundle\Entity\Parish 
+     */
+    public function getParish()
+    {
+        return $this->parish;
+    }
 }

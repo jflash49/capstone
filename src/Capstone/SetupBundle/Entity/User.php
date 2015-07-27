@@ -6,48 +6,38 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- *
- * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="Email", columns={"Email"})})
- * @ORM\Entity
  */
 class User
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="UserID", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $userid;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Username", type="string", length=255, nullable=true)
      */
     private $username;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Password", type="string", length=255, nullable=false)
      */
     private $password;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="roles", type="string", length=255, nullable=true)
      */
     private $roles;
+
+    /**
+     * @var \Capstone\SetupBundle\Entity\UserInfo
+     */
+    private $info;
 
 
     /**
@@ -150,5 +140,28 @@ class User
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Set info
+     *
+     * @param \Capstone\SetupBundle\Entity\UserInfo $info
+     * @return User
+     */
+    public function setInfo(\Capstone\SetupBundle\Entity\UserInfo $info = null)
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * Get info
+     *
+     * @return \Capstone\SetupBundle\Entity\UserInfo 
+     */
+    public function getInfo()
+    {
+        return $this->info;
     }
 }

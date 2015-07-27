@@ -50,6 +50,7 @@ Capstone\SetupBundle\Entity\UserInfo:
     oneToOne:
         owner:
             targetEntity: User
+            inversedBy: info
             joinColumn:
                referencedColumnName: userid
                

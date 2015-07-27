@@ -71,7 +71,7 @@ class Question
      *   @ORM\JoinColumn(name="question_type", referencedColumnName="question_type")
      * })
      */
-    private $questionType;
+    protected $questionType;
 
 
 
@@ -245,4 +245,13 @@ class Question
     {
         return $this->questionType;
     }
+    
+    /**
+	*
+	*@return string
+	*/
+	public function __toString()
+	{
+		return (string) $this->getQuestionType();
+	}
 }
