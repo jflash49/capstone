@@ -1,28 +1,16 @@
 {#  src/Capstone/QuizBundle/Resources/views/Default/index.html.twig#}
-{% extends '::base.html.twig' %}
-{% block title %} Quiz{% endblock %}
+{% extends '::admin/layout.html.twig' %}
+{% block title %} FunQ Quiz{% endblock %}
 {% block body %}
 <div>
 <div>
 <h1>Quiz</h1>
 <h3> Good Luck! </h3>
-<hr>
-<ul>
-	<li><a href="{{path ('quiz_homepage') }}"> Take Quiz</a>
-	</li>
-	<li><a href="{{path ('report_homepage') }}"> View Report</a>
-	</li>
-	<li><a href="{{path ('setup_homepage') }}"> Setup</a>
-	</li>
-	<li><a href="{{path ('setup_homepage') }}"> About</a>
-	</li>
 
-
-</ul>
 </div>
 <div>
 <hr>
 	<p> Options Go here Regarding Filtering and Downloading
-    </div>
+     </div>
     </div>
 {% endblock %}

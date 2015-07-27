@@ -1,27 +1,18 @@
 {#  src/Capstone/ReportBundle/Resources/views/Default/index.html.twig#}
-{% extends '::base.html.twig' %}
-{% block title %} Report {% endblock %}
+{% extends '::admin/layout.html.twig' %}
+{% block title %} FunQ Report {% endblock %}
 {% block body %}
-<div>
-<div>
+<div class="row">
+<div class="large-12 columns">
+<div class="panel">
 <h1>Report</h1>
-<hr>
-<ul>
-	<li><a href="{{path ('quiz_homepage') }}"> Take Quiz</a>
-	</li>
-	<li><a href="{{path ('report_homepage') }}"> View Report</a>
-	</li>
-	<li><a href="{{path ('setup_homepage') }}"> Setup</a>
-	</li>
-	<li><a href="{{path ('setup_homepage') }}"> About</a>
-	</li>
-
-
-</ul>
 </div>
-<div>
-<hr>
-	<p> Options Go here Regarding Filtering and Downloading
+</div>
+</div>
+
+<div style="text-align: center">
+
+	<h1> SELECT REPORT TYPE </h1><br><h3>Options Go here Regarding Filtering and Downloading</h3>
     </div>
     </div>
 {% endblock %}

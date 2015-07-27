@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{%block title %} Foundation Template | Banner {% endblock %}
+{% block header%}
+	<div class="row">
+<div class="large-12 columns">
+<ul class="button-group right">
+<li><a href="#" class="button tiny">Home</a></li>
+<li><a href="#" class="button tiny">Info</a></li>
+<li><a href="#" class="button tiny">Admin/Teacher/Student</a></li>
+<li><a href="#" class="button tiny">Logout</a></li>
+</ul>
+<hr>
+<ul class="button-group left">
+<li><a href="{{path ('quiz_homepage') }}" class="button secondary">Take Quiz</a></li>
+<li><a href="{{path ('report_homepage') }}" class="button secondary">Report</a></li>
+<li><a href="#" class="button secondary">About</a></li>
+<li><a href="{{path ('setup_homepage') }}" class="button secondary">Setup</a></li>
+</ul>
+ 
+<!-- <p><img src="http://placehold.it/1000x400&text=[banner img]"/></p> -->
+</div>
+</div>
+{% endblock %}
+
+ {% block body %}
+ 
+ 
+<div class="row">
+<div class="large-12 columns">
+<div class="panel">
+<h4>Good Luck!</h4>
+<div class="row">
+
+</div>
+</div>
+</div>
+</div>
+ 
+<div class="row">
+<div class="large-12 columns">
+<div class="panel" id="test_content"> <!-- where the test content will be -->
+Insert Content
+<div class="row">
+
+
+</div>
+</div>
+</div>
+</div>
+ {% endblock %}
+ 
+ {% block footer %}
+<footer class="row">
+<div class="large-12 columns">
+<hr/>
+<div class="row">
+<div class="large-6 columns">
+<p>&copy; Copyright FunQ</p>
+</div>
+<div class="large-6 columns">
+<ul class="inline-list right">
+<li><a href="#">Twitter</a></li>
+<li><a href="#">Facebook</a></li>
+<li><a href="#">Tumblr</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+{% endblock %}

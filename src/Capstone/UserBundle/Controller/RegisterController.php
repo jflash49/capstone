@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-use Capstone\UserBundle\Entity\User;
+use Capstone\SetupBundle\Entity\User;
 use Capstone\UserBundle\Form\RegisterFormType;
 
 class RegisterController extends Controller
@@ -65,7 +65,7 @@ class RegisterController extends Controller
         // todo
     }
     
-    private function encodePassword(UserBundle $user, $plainPassword)
+    private function encodePassword(User $user, $plainPassword)
     {
         $encoder = $this->container->get('security.encoder_factory')
             ->getEncoder($user)

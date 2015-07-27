@@ -9,13 +9,27 @@ Capstone\SetupBundle\Entity\QuizQuestion:
             generator:
                 strategy: AUTO
     fields:
-        quiznum:
-            type: integer
-            column: quiznum
-        questionID:
-            type: integer
-            column: question_ID
         answer:
             type: string
             length: '2'
+    manyToOne:
+        quiznum:
+            targetEntity: Quiz
+            cascade: {   }
+            mappedBy: null
+            inversedBy: null
+            joinColumn:              
+               referencedColumnName: quiznum
+               onDelete: CASCADE
+              
+        questionID:
+            targetEntity: Question
+            cascade: {   }
+            mappedBy: null
+            inversedBy: null
+            joinColumn:               
+               referencedColumnName: question_ID
+               onDelete: CASCADE
+              
+    
     lifecycleCallbacks: {  }

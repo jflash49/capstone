@@ -6,30 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UserInfo
- *
- * @ORM\Table(name="UserInfo")
- * @ORM\Entity
  */
 class UserInfo
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="UserID", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstName;
 
     /**
      * @var string
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
     private $lastName;
 
@@ -62,14 +53,13 @@ class UserInfo
      * @var integer
      */
     private $iQ;
-	
+
     /**
-	*@ORM\OneToOne(targetEntity="Capstone\UserBundle\Entity\User)
-	*
-	*/
-	private $owner;
-	
-	
+     * @var \Capstone\SetupBundle\Entity\User
+     */
+    private $owner;
+
+
     /**
      * Get id
      *
@@ -263,37 +253,14 @@ class UserInfo
     {
         return $this->iQ;
     }
-    /**
-     * Set userid
-     *
-     * @param \Capstone\SetupBundle\Entity\User $userid
-     * @return Quiz
-     */
-    public function setUserid(\Capstone\SetupBundle\Entity\User $userid = null)
-    {
-        $this->userid = $userid;
-
-        return $this;
-    }
-
-    /**
-     * Get userid
-     *
-     * @return \Capstone\SetupBundle\Entity\User 
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
-    
 
     /**
      * Set owner
      *
-     * @param \Capstone\UserBundle\Entity\User $owner
+     * @param \Capstone\SetupBundle\Entity\User $owner
      * @return UserInfo
      */
-    public function setOwner(\Capstone\UserBundle\Entity\User $owner = null)
+    public function setOwner(\Capstone\SetupBundle\Entity\User $owner = null)
     {
         $this->owner = $owner;
 
@@ -303,7 +270,7 @@ class UserInfo
     /**
      * Get owner
      *
-     * @return \Capstone\UserBundle\Entity\User 
+     * @return \Capstone\SetupBundle\Entity\User 
      */
     public function getOwner()
     {
