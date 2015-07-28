@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Resquest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use Doctrine\ORM\Query\ResultSetMapping;
+
 /**
  * Report Controller
  *
@@ -23,14 +26,14 @@ class ReportController extends Controller
 	public function schoolAction($school) {
 		
 		$em = $this->getDoctrine()->getManager();
-		$report = $em->getRepository('SetupBundle: UserInfo')->findBy(array('school'=> $school));
+		$report = $em->createQuery("Select A  from SetupBundle:UserInfo A where A.school='" .$school."'")->getResult();
 		if (!$report){
 			throw $this->createNotFoundException(
 				'No School found for school '.$school
 				);
 			}
 		
-		return new Response ('ReportBundle::school.html.twig', array('school' => $report, 'name'=>'School'));
+		return $this->render('ReportBundle::school.html.twig', array('school' => $report, 'name'=>'School'));
 	}
 	/**
 	 * @Route("/region/{region}",name="region_report")
@@ -54,15 +57,14 @@ class ReportController extends Controller
 	 */
 	public function classAction($class) {
 		$em = $this->getDoctrine()->getManager();
-		$report = $em->createQuery(
-		"SELECT A.from SetupBundle:UserInfo A  WHERE A.Class = '".$class."'")->getResult();
+		$report = $em->createQuery("SELECT A from SetupBundle:UserInfo  A where A.class='".$class."'")->getResult();
 		if (!$report){
 			throw $this->createNotFoundException(
 				'No Data found for Region '.$class
 				);
 			}
 	
-		return $this->render('ReportBundle::region.html.twig', array('class' => $report, 'name'=>'Class'));
+		return $this->render('ReportBundle::class.html.twig', array('class' => $report, 'name'=>'Class'));
 	}
 	
 	/**
@@ -70,28 +72,102 @@ class ReportController extends Controller
 	 * 
 	 */
 	public function resultAction($id) {
+		$rsm = new ResultSetMapping();
+		$rsm->addScalarResult('area', 'a');
+		$rsm->addScalarResult('amount','t');
 		$em = $this->getDoctrine()->getManager();
-		$verbal = $em->createQuery(
-		" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Verbal,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='verbal' AND C.UserID = '".$id."'";
-)->getResult();
-$math = $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS mathematical,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='mathematical' AND C.UserID = '".$id."'";
-)->getResult();
-$spatial= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS spatial,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='spatial' AND C.UserID = '".$id."'";
-)->getResult();
-$visual= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Visualization,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='visualization' AND C.UserID = '".$id."'";
-)->getResult();
-$classify= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Classification,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='classification' AND C.UserID = '".$id."'";
-)->getResult();
-$logic= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Logic, COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='logic' AND C.UserID = '".$id."'";
-)->getResult();
-$pattern= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Pattern,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='pattern recognition' AND C.UserID = '".$id."'";
-)->getResult();
+		$verbal = $em->createNativeQuery("select  SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS verbal, Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'verbal' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+	
+		$math = $em->createNativeQuery("select  SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS math, Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'mathematical' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+					
+		$spatial = $em->createNativeQuery("select SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS 'Spatial', Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'spatial' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+		$visual = $em->createNativeQuery("select  SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS visual, Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'visual' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+		$classify = $em->createNativeQuery("select  SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS 'Classification', Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'classification' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+		$logic = $em->createNativeQuery("select  SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS 'Logic', Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'logic' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+		$pattern = $em->createNativeQuery("select  SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS 'pattern', Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'pattern recognition' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+		/*$verbal = $em->createQuery("select C.userid, SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS verbal, Count(B.questionType) AS Total 
+			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType= 'verbal' 
+				AND C.userid = '".$id."'")->getResult();	
+		$math = $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer THEN 1 ELSE 0 END)AS mathematical,Count(B.questionType) AS Total 
+			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType='mathematical' 
+				AND C.userid= '".$id."'")->getResult();				
+		$spatial= $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer THEN 1 ELSE 0 END)AS spatial,Count(B.questionType) AS Total 
+			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType='spatial' 
+				AND C.userid = '".$id."'")->getResult();				
+		$visual= $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer THEN 1 ELSE 0 END)AS Visualization,Count(B.questionType) AS Total 
+			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType='visualization' 
+				AND C.userid = '".$id."'")->getResult();		
+		$classify= $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Classification,Count(B.questionType) AS Total 
+			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType='classification' 
+				AND C.userid = '".$id."'")->getResult();		
+		$logic= $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Logic, Count(B.questionType) AS Total 
+			from  SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType='logic' 
+				AND C.userid = '".$id."'")->getResult();		
+		$pattern= $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer THEN 1 ELSE 0 END)AS Pattern,Count(B.questionType) AS Total 
+			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			where A.questionID = B.questionId 
+				AND A.quiznum = C.quiznum 
+				AND B.questionType='pattern recognition' 
+				AND C.userid = '".$id."'")->getResult();*/
+				
 		if ((!$verbal) ||(!$math)||(!$visual)||(!$classify)||(!$pattern)||(!$logic)||(!$spatial)){
 			throw $this->createNotFoundException(
 				'No Data found for Person'
 				);
-			}
-	
+			}	
 		return $this->render('ReportBundle::user.html.twig', array(
 				'verbal' => $verbal, 
 				'math'=>  $math ,
@@ -116,6 +192,6 @@ $pattern= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  T
 				);
 			}
 	
-		return $this->render('ReportBundle::region.html.twig', array('regional' => $report, 'name'=>'Regional'));
+		return $this->render('ReportBundle::regional.html.twig', array('regional' => $report, 'name'=>'Regional'));
 	}
 } 

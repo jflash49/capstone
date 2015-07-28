@@ -1,0 +1,65 @@
+{% extends '::admin/layout.html.twig' %}
+
+{% block body -%}
+<div class="row">
+<div class="large-12 columns">
+    <h1>UserInfo</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ entity.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ entity.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Birthdate</th>
+                <td>{{ entity.birthdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ entity.gender }}</td>
+            </tr>
+            <tr>
+                <th>School</th>
+                <td>{{ entity.school }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{ entity.class }}</td>
+            </tr>
+            <tr>
+                <th>Parish</th>
+                <td>{{ entity.parish }}</td>
+            </tr>
+            <tr>
+                <th>Iq</th>
+                <td>{{ entity.iQ }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('userinfo') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('userinfo_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+</div>
+</div>
+</div>
+{% endblock %}

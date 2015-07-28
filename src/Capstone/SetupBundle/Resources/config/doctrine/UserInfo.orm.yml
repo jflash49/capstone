@@ -52,6 +52,6 @@ Capstone\SetupBundle\Entity\UserInfo:
             targetEntity: User
             inversedBy: info
             joinColumn:
-               referencedColumnName: userid
+               referencedColumnName: UserID
                
     lifecycleCallbacks: {  }

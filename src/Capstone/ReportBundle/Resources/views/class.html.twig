@@ -5,6 +5,8 @@
 
 {% endblock %}
 {% block body %} 
+<div class="row">
+<div class="large-12 columns"">
 <h1> {{ name }} </h1>
 <table class="records_list">
         <thead>
@@ -13,6 +15,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Gender </th>
+                <th>Class </th>
                 <th>IQ</th>
         </thead>
         <tbody>
@@ -23,6 +26,7 @@
                 <td>{{reg.firstName}}</td>
                 <td>{{reg.lastName}}</td>
                 <td>{{reg.gender}}</td>
+                <td>{{reg.class }}</td>
                 <td>{{reg.iQ}}</td>
         
                 
@@ -30,4 +34,6 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+</div>
 {% endblock %}

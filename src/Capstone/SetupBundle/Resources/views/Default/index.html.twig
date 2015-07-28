@@ -1,23 +1,28 @@
 {#  src/Capstone/SetupBundle/Resources/views/Default/index.html.twig#}
 {% extends '::admin/layout.html.twig' %}
 {% block title %} FunQ Setup {% endblock %}
-{% block body %}
-<div>
-<div>
-<h1>Setup</h1>
-</div>
-<div>
-	<ul>
-		<li> <a href="{{path ('classification') }}"> Classification </a>
+{% block subheader %}
+<div class="row">
+<div class="large-12 columns">
+<ul class="button-group left">
+		<li> <a href="{{path ('classification') }}" class="button tiny"> Classification </a>
 		</li>
-		<li> <a href="{{path ('question') }}"> Question </a>
+		<li> <a href="{{path ('question') }}" class="button tiny"> Question </a>
 		</li>
-		<li> <a href="{{path ('questiontype') }}"> Question Type </a>
+		<li> <a href="{{path ('questiontype') }}" class="button tiny"> Question Type </a>
 		</li>
-		<li> <a href="{{path ('school') }}"> School </a>
+		<li> <a href="{{path ('school') }}" class="button tiny"> School </a>
 		</li>
 		
     </ul>
     </div>
     </div>
+    </div>
+    {% endblock %}
+{% block body %}
+<div class=row>
+<div>
+<h1>Choose Setup Options</h1>
+</div>
+
 {% endblock %}

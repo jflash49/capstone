@@ -45,7 +45,8 @@ Capstone\SetupBundle\Entity\User:
             comment: ''
     oneToOne:
         info:
-            targetEntity: Capstone\SetupBundle\Entity\UserInfo
+            targetEntity: UserInfo
+            mappedBy: owner
             joinColumn:
                name : info_id
                referencedColumnName: id

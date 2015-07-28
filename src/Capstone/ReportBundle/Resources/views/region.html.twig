@@ -5,7 +5,9 @@
 
 {% endblock %}
 {% block body %}
-<h1>Region</h1>
+<div class="row">
+<div class="large-12 columns"">
+<h1> {{ name }} </h1>
 	
     <table class="records_list">
         <thead>
@@ -28,4 +30,6 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
+</div>
 {% endblock %}

@@ -1,1 +1,82 @@
- 
+ {#  src/Capstone/QuizBundle/Resources/views/report.html.twig#}
+{% extends '::admin/layout.html.twig' %}
+{% block title %} FunQ Quiz{% endblock %}
+{% block subheader %}
+
+{% endblock %}
+{% block body %}
+<div class="row">
+<div class="large-12 columns"">
+<h1> {{ name }} </h1>
+	<h5 class="subheader">Verbal</h5>
+		<div class="progress large-5">
+			<span class="meter" id="verb_bar"style="width:30% "></span>
+		</div>
+
+		<h5 class="subheader">Mathematical</h5>
+		<div class="radius progress large-5">
+			<span class="meter" id="math_bar" style="width: 80%"></span>
+		</div>
+
+		<h5 class="subheader">Visualization</h5>
+		<div class="radius progress  large-5">
+			<span class="meter" id="visual_bar" style="width: 30%"></span>
+		</div>
+
+		<h5 class="subheader">Classification</h5>
+		<div class="radius progress large-5">
+			<span class="meter" id="class_bar"style="width: 60%"></span>
+		</div>
+
+		<h5 class="subheader">Logic</h5>
+		<div class="radius progress large-5">
+			<span class="meter" id="logic_bar"style="width: 30%"></span>
+		</div>
+
+		<h5 class="subheader">Patterns</h5>
+		<div class="radius progress large-5">
+			<span class="meter" id="patt_bar"style="width: 30%"></span>
+		</div>
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>No. </th>
+                <th>School</th>
+                <th>Parish</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+		<tr> <td> {{verbal}}</td><td> {{verbal}}</td></tr>
+        <tbody>
+       
+    </table>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Area', 'Percent'],
+          ['Verbal',     8],
+          ['Mathematical',  13],
+          ['Visualization', 5],
+          ['Classification',    10],
+          ['Logic',    5],
+          ['Patterns',    5]
+        ]);
+
+        var options = {
+          title: '',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+{% endblock %}

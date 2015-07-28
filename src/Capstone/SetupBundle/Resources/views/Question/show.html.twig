@@ -1,6 +1,8 @@
-{% extends '::base.html.twig' %}
+{% extends '::admin/layout.html.twig' %}
 
-{% block body -%}
+{% block body %}
+<div class="row">
+<div class="large-12 columns">
     <h1>Question</h1>
 
     <table class="record_properties">
@@ -49,4 +51,6 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+</div>
+</div>
 {% endblock %}

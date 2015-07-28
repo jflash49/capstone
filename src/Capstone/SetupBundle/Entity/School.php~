@@ -95,4 +95,13 @@ class School
     {
         return $this->parish;
     }
+    /**
+     * Get school
+     * 
+     * @return school 
+     */
+    public function __toString()
+    {
+		return (string)$this->getSchool();
+	}
 }

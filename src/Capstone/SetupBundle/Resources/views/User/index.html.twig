@@ -3,28 +3,34 @@
 {% block body -%}
 <div class="row">
 <div class="large-12 columns">
-    <h1>School list</h1>
+    <h1>User list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
-                <th>Schoolid</th>
-                <th>School</th><th> Parish</>
+                <th>Userid</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Roles</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('school_show', { 'id': entity.schoolId }) }}">{{ entity.schoolId }}</a></td>
-                <td>{{ entity.school }}</td><td> {{ entity.parish }} </td>
+                <td><a href="{{ path('user_show', { 'id': entity.userid }) }}">{{ entity.userid }}</a></td>
+                <td>{{ entity.username }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.password }}</td>
+                <td>{{ entity.roles }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('school_show', { 'id': entity.schoolId }) }}">show</a>
+                        <a href="{{ path('user_show', { 'id': entity.userid }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('school_edit', { 'id': entity.schoolId }) }}">edit</a>
+                        <a href="{{ path('user_edit', { 'id': entity.userid }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,13 +41,8 @@
 
         <ul>
         <li>
-            <a href="{{ path('school_new') }}">
+            <a href="{{ path('user_new') }}">
                 Create a new entry
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('setup_homepage') }}">
-			Back
             </a>
         </li>
     </ul>

@@ -1,3 +1,11 @@
+setup_userinfo:
+    resource: "@SetupBundle/Resources/config/routing/userinfo.yml"
+    prefix:   /userinfo
+
+setup_user:
+    resource: "@SetupBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
 setup_school:
     resource: "@SetupBundle/Resources/config/routing/school.yml"
     prefix:   /school

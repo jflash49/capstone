@@ -15,7 +15,7 @@ class Quiz
     /**
      * @var integer
      *
-     * @ORM\Column(name="quizNum", type="integer")
+     * @ORM\Column(name="quiznum", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */

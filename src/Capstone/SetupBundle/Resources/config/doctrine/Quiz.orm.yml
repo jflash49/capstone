@@ -12,7 +12,7 @@ Capstone\SetupBundle\Entity\Quiz:
             unsigned: false
             comment: ''
             id: true
-            column: quizNum
+            column: quiznum
             generator:
                 strategy: IDENTITY
     manyToOne:
