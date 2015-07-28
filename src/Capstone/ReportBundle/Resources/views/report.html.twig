@@ -1,0 +1,31 @@
+{#  src/Capstone/QuizBundle/Resources/views/report.html.twig#}
+{% extends '::admin/layout.html.twig' %}
+{% block title %} FunQ Quiz{% endblock %}
+{% block subheader %}
+
+{% endblock %}
+{% block body %}
+<h1>Region</h1>
+	
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>No. </th>
+                <th>School</th>
+                <th>Parish</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reg in region %}
+            <tr>
+                {#<td><a href="{{ path('classification_show', { 'id': entity.classificationIq }) }}">{{ entity.classificationIq }}</a></td>
+                reg.schoolId #}<td>{{loop.index}}</td>
+                <td>{{reg.school}}</td>
+                <td>{{reg.parish}}</td>
+        
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

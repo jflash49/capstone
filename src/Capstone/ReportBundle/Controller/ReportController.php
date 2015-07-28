@@ -22,19 +22,20 @@ class ReportController extends Controller
 	 */
 	public function schoolAction($school) {
 		
-		/*$em = $this->getDoctrine()->getManager();
+		$em = $this->getDoctrine()->getManager();
 		$report = $em->getRepository('SetupBundle: UserInfo')->findAll($school);
 		if (!$report){
 			throw $this->createNotFoundException(
 				'No School found for school '.$school
 				);
-			}*/
+			}
 		
-		return new Response ('<html><body>Hello</body></html>');
+		return $this->render('ReportBundle::report.html.twig', array('report' => $report));
 	}
 	/**
 	 * @Route("/region/{region}",name="region_report")
 	 * 
+	 * @return FilterByRegion
 	 */
 	public function regionAction($region) {
 		$em = $this->getDoctrine()->getManager();
@@ -45,8 +46,29 @@ class ReportController extends Controller
 				'No Data found for Region '.$region
 				);
 			}
-	
-		return $this->render('ReportBundle:Region:region.html.twig', array('region' => $report));
+		return $this->render('ReportBundle::report.html.twig', array('region' => $report));
 	}
-
+	/**
+	 * @Route("/class/{class}",name="region_report")
+	 * 
+	 * @return FilterByRegion
+	 *
+	public function classAction($class) {
+		$em = $this->getDoctrine()->getManager();
+		$report = $em->createQuery(
+		"
+		 select A.firstName,A.lastName,B.quizNum,C.correct_questions,C.incorrect_questions 
+    from SetupBundle: UserInfo A JOIN SetupBundle:Quiz As B JOIN SetupBundle: QuizResults C 
+    where A.UserID = B.UserID 
+    and B.quizNum = C.quizNum 
+    and  
+		$report = $em->createQuery (
+		 " select A.FirstName, A.LastName, A.IQ from SetupBundle:UserInfo A where A.Class ='".$class."'")->getResult(); 
+		  if (!$report){
+			throw $this->createNotFoundException(
+				'No Data found for Region '.$region
+				);
+			}
+		return $this->render('ReportBundle::report.html.twig', array('region' => $report));
+	}*/
 } 

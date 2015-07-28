@@ -1,6 +1,6 @@
 report:
     resource: "@ReportBundle/Resources/config/routing.yml"
-    prefix:   /admin/report
+    prefix:   /report
 
 quiz:
     resource: "@QuizBundle/Resources/config/routing.yml"
@@ -25,7 +25,7 @@ home:
         template:    "admin/layout.html.twig"
 reports:   
      resource: "@ReportBundle/Controller/"
-     prefix: /
+     prefix: /report/tab/
      type: annotation
      
 # api:
