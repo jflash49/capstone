@@ -1,6 +1,18 @@
 {#  src/Capstone/ReportBundle/Resources/views/Default/index.html.twig#}
 {% extends '::admin/layout.html.twig' %}
 {% block title %} FunQ Report {% endblock %}
+{% block subheader %}
+<div class="row">
+<ul class="button-group left">
+<li><a href="{{path ('school_report',{'school': 1 })}}" class="button secondary">Take Quiz</a></li>
+<li><a href="{{path ('region_report',{'region': 1 })}}" class="button secondary">Report</a></li>
+<li><a href="{{path ('class_report',{'class':1 })}}}" class="button secondary">About</a></li>
+<li><a href="{{path ('regional_report' )}}" class="button secondary">Setup</a></li>
+<li><a href="{{path ('result_report',{'id':1 })}}" class="button secondary">Setup</a></li>
+</ul>
+</div>
+{% endblock %}
+
 {% block body %}
 <div class="row">
 <div class="large-12 columns">
