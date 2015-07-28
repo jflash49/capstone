@@ -17,58 +17,105 @@ class ReportController extends Controller
 {
 	/**
 	 * @Route("/school/{school}",name="school_report")
-	 * 
+	 *  
 	 * @return FilterBySchool
 	 */
 	public function schoolAction($school) {
 		
 		$em = $this->getDoctrine()->getManager();
-		$report = $em->getRepository('SetupBundle: UserInfo')->findAll($school);
+		$report = $em->getRepository('SetupBundle: UserInfo')->findBy(array('school'=> $school));
 		if (!$report){
 			throw $this->createNotFoundException(
 				'No School found for school '.$school
 				);
 			}
 		
-		return $this->render('ReportBundle::report.html.twig', array('report' => $report));
+		return new Response ('ReportBundle::school.html.twig', array('school' => $report, 'name'=>'School'));
 	}
 	/**
 	 * @Route("/region/{region}",name="region_report")
 	 * 
-	 * @return FilterByRegion
 	 */
 	public function regionAction($region) {
 		$em = $this->getDoctrine()->getManager();
 		$report = $em->createQuery(
-		"SELECT A.schoolId, A.school, B.parish from SetupBundle:School A JOIN SetupBundle:Parish B WHERE A.parish = B.parishId and B.parish='".$region." '")->getResult();
+		"SELECT A.schoolId, A.school, B.parish from SetupBundle:School A JOIN SetupBundle:Parish B WHERE A.parish = B.parishId and B.parish='".$region."'")->getResult();
 		if (!$report){
 			throw $this->createNotFoundException(
 				'No Data found for Region '.$region
 				);
 			}
-		return $this->render('ReportBundle::report.html.twig', array('region' => $report));
+	
+		return $this->render('ReportBundle::region.html.twig', array('region' => $report, 'name'=>'Region'));
 	}
 	/**
-	 * @Route("/class/{class}",name="region_report")
+	 * @Route("/class/{class}",name="class_report")
 	 * 
-	 * @return FilterByRegion
-	 *
+	 */
 	public function classAction($class) {
 		$em = $this->getDoctrine()->getManager();
 		$report = $em->createQuery(
-		"
-		 select A.firstName,A.lastName,B.quizNum,C.correct_questions,C.incorrect_questions 
-    from SetupBundle: UserInfo A JOIN SetupBundle:Quiz As B JOIN SetupBundle: QuizResults C 
-    where A.UserID = B.UserID 
-    and B.quizNum = C.quizNum 
-    and  
-		$report = $em->createQuery (
-		 " select A.FirstName, A.LastName, A.IQ from SetupBundle:UserInfo A where A.Class ='".$class."'")->getResult(); 
-		  if (!$report){
+		"SELECT A.from SetupBundle:UserInfo A  WHERE A.Class = '".$class."'")->getResult();
+		if (!$report){
 			throw $this->createNotFoundException(
-				'No Data found for Region '.$region
+				'No Data found for Region '.$class
 				);
 			}
-		return $this->render('ReportBundle::report.html.twig', array('region' => $report));
-	}*/
+	
+		return $this->render('ReportBundle::region.html.twig', array('class' => $report, 'name'=>'Class'));
+	}
+	
+	/**
+	 * @Route("/overallscore/{id}",name="result_report")
+	 * 
+	 */
+	public function resultAction($id) {
+		$em = $this->getDoctrine()->getManager();
+		$verbal = $em->createQuery(
+		" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Verbal,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='verbal' AND C.UserID = '".$id."'";
+)->getResult();
+$math = $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS mathematical,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='mathematical' AND C.UserID = '".$id."'";
+)->getResult();
+$spatial= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS spatial,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='spatial' AND C.UserID = '".$id."'";
+)->getResult();
+$visual= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Visualization,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='visualization' AND C.UserID = '".$id."'";
+)->getResult();
+$classify= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Classification,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='classification' AND C.UserID = '".$id."'";
+)->getResult();
+$logic= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Logic, COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='logic' AND C.UserID = '".$id."'";
+)->getResult();
+$pattern= $em->createQuery(" select SUM(CASE A.answer WHEN A.answer<>B.answer  THEN 1 ELSE 0 END)AS Pattern,COUNT(B.question_type) AS 'Total' from QuizQuestion AS A JOIN Question AS B JOIN Quiz AS C where A.question_ID = B.question_ID AND A.quiznum=C.quiznum AND B.question_type='pattern recognition' AND C.UserID = '".$id."'";
+)->getResult();
+		if ((!$verbal) ||(!$math)||(!$visual)||(!$classify)||(!$pattern)||(!$logic)||(!$spatial)){
+			throw $this->createNotFoundException(
+				'No Data found for Person'
+				);
+			}
+	
+		return $this->render('ReportBundle::user.html.twig', array(
+				'verbal' => $verbal, 
+				'math'=>  $math ,
+				'visual'=> $visual,
+				'classify'=>$classify,
+				'pattern' => $pattern,
+				'logic'=>$logic,
+				'spatial'=>$spatial,
+				'name'=>'User Result'));
+	}
+	/**
+	 * @Route("/regional/",name="regional_report")
+	 * 
+	 */
+	public function regionalAction() {
+		$em = $this->getDoctrine()->getManager();
+		$report = $em->createQuery(
+		"SELECT Count(A) from SetupBundle:UserInfo A Group BY School")->getResult();
+		if (!$report){
+			throw $this->createNotFoundException(
+				'No Data found for Regional Participation'
+				);
+			}
+	
+		return $this->render('ReportBundle::region.html.twig', array('regional' => $report, 'name'=>'Regional'));
+	}
 } 
