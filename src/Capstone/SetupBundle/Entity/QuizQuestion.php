@@ -6,26 +6,27 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * QuizQuestion
+ * @ORM\Table (name="QuizQuesiton")
  */
 class QuizQuestion
 {
     /**
-     * @var integer
+     * @var integer 
      */
     private $id;
 
     /**
-     * @var string
+     * @var string 
      */
     private $answer;
 
     /**
-     * @var \Capstone\SetupBundle\Entity\Quiz
+     * @var \Capstone\SetupBundle\Entity\Quiz 
      */
     private $quiznum;
 
     /**
-     * @var \Capstone\SetupBundle\Entity\Question
+     * @var \Capstone\SetupBundle\Entity\Question 
      */
     private $questionID;
 

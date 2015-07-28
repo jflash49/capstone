@@ -1,6 +1,6 @@
 <?php 
 // src/FunQ/UserBundle/Controller/RegisterController.php
-namespace CapstoneUserBundle\Controller;
+namespace Capstone\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 //use FunQ\Bundle\FunQBundle\Controller\Controller;

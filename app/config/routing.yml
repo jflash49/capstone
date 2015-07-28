@@ -19,8 +19,18 @@ app:
     type:     annotation
 
 home:
-     path: /home/
+     path: /
      defaults:
         _controller: FrameworkBundle:Template:template
         template:    "admin/layout.html.twig"
-        
+reports:   
+     resource: "@ReportBundle/Controller/"
+     prefix: /
+     type: annotation
+     
+# api:
+#    path: /api/
+#    defaults:
+#        _controller: FrameworkBundle:Template:template
+#        template: "/var/www/html/FunQ/vendor/phpdocumentor/phpdocumentor/output/index.html.twig"
+#
