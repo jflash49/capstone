@@ -27,12 +27,16 @@ reports:
      resource: "@ReportBundle/Controller/"
      prefix: /report/tab/
      type: annotation
+
 about:
      path: /about/
      defaults:
         _controller: FrameworkBundle:Template:template
         template:    "admin/about.html.twig"
-
+fun:
+   resource: "@QuizBundle/Controller/"
+   prefix: /app/
+   type: annotation
 # api:
 #    path: /api/
 #    defaults:
