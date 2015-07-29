@@ -12,7 +12,7 @@ class QuizController extends Controller
 	 */ 
     public function startAction()
     {
-		questionselector();
+		selectorAction();
         return $this->render('QuizBundle:Default:index.html.twig');
     }
     
@@ -30,8 +30,8 @@ class QuizController extends Controller
 	$em= $this->getDoctrine()->getManager();
 	$result =  $em->createQuery("Select A from SetupBundle:Question A 
 		where A. difficulty = .'".$difficulty."' 
-			AND points".$points.", 
-			AND type=.'". $type."' 
+			AND A.points".$points.", 
+			AND A.type=.'". $type."' 
 			AND A.questionId NOT IN (".$questions.")")->getResult();
 	if ((!$result)){
 		throw $this->createNotFoundException('Unable to find Question entity.');     
@@ -49,9 +49,9 @@ class QuizController extends Controller
 	$mark = true;
 	echo $question['question'];
 	if(isset($_POST['answer'])){
-		$answer = $_POST['answer']
+		$answer = $_POST['answer'];
 		storeAction($quiznum, $question['question_ID'], $answer);
-		if $answer!= $question['answer']
+		if ($answer!= $question['answer'])
 			{
 				$mark = false;				
 			}
@@ -60,7 +60,7 @@ class QuizController extends Controller
 			
 	/**
 	 * 
-	 * This function stores tthhe quiz ID, question ID and answer
+	 * This function stores the quiz ID, question ID and answer
 	 * 
 	 * @var integer $quiznum , 
 	 * 		integer $questionid,
@@ -70,7 +70,7 @@ class QuizController extends Controller
 	 */ 
 	public function storeAction ($quiznum, $questionid, $answer) {
 
-			insert into quizquestion values ($quiznum, $questionid, $answer)
+			//insert into quizquestion values ($quiznum, $questionid, $answer)
 			
 	}
 	/**
@@ -87,7 +87,7 @@ class QuizController extends Controller
 	 * 
 	 * @return none
 	 */ 
-	public function questionselector () {
+	public function selectorAction () {
 		$questioncnt=array();
 		$pass = true;
 		$quest = 'M'
@@ -117,10 +117,10 @@ class QuizController extends Controller
 						$quest='L';$points='<=2';
 						}
 					if ($quest == 'L'&& $pass==true ){
-						$quest='M';$points = '3'
+						$quest='M';$points = '=3'
 					}
 					if ($quest == 'H'&& $pass==false ){
-						$quest='M';$points = '3'
+						$quest='M';$points = '=3'
 						}
 					if ($quest == 'H'&& $pass==true){
 						$quest='H';$points='>3';
