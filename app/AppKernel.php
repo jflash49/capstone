@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new Capstone\QuizBundle\QuizBundle(),
             new Capstone\ReportBundle\ReportBundle(),
             new Bmatzner\FoundationBundle\BmatznerFoundationBundle(),
+            new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

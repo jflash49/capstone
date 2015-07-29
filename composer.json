@@ -26,7 +26,8 @@
         "phpunit/phpunit": "^4.7",
         "stof/doctrine-extensions-bundle": "^1.1",
         "bmatzner/foundation-bundle": "~5.3",
-        "phpdocumentor/phpdocumentor": "^2.8"
+        "phpdocumentor/phpdocumentor": "^2.8",
+        "excelwebzone/recaptcha-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

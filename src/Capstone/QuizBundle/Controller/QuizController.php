@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Resquest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Doctrine\ORM\Query\ResultSetMapping;
 use Capstone\SetupBundle\Entity\Question;
 use Capstone\SetupBundle\Entity\QuizResults;
 /**
@@ -25,8 +26,8 @@ class QuizController extends Controller
     */ 
     public function startAction()
     {
-	$this->selectorAction();
-	return $this->endAction();
+	return $this->selectorAction();
+	
         //return $this->render('QuizBundle:Default:index.html.twig');
     }
     /**
@@ -41,12 +42,20 @@ class QuizController extends Controller
     public function getAction ($type, $difficulty, $points,array $question){
 	$result = new Question ();
 	$em= $this->getDoctrine()->getManager();
-	
+	if(!empty($question)){
+	$list = implode(',',$question);
 	$result =  $em->createQuery("Select A from SetupBundle:Question A 
-		where A. difficulty = .'".$difficulty."' 
-			AND A.points".$points.", 
-			AND A.type=.'". $type."' 
-			AND A.questionId NOT IN [".$question."]")->getResult();
+		where A.difficulty = '".$difficulty."' 
+			AND A.points".$points."
+			AND A.questionType='". $type."' 
+			AND A.questionId NOT IN (".$list.")")->getResult();
+	}else{
+		$result =  $em->createQuery("Select A from SetupBundle:Question A 
+		where A.difficulty = '".$difficulty."' 
+			AND A.points".$points."
+			AND A.questionType='". $type."'")->getResult();
+	}
+	var_dump($result);die;
 	if (!$result){
 		throw $this->createNotFoundException('Unable to find Question entity.');     
 		}
@@ -94,6 +103,8 @@ class QuizController extends Controller
       * @return none
       */ 
     public function storeAction ($quiznum, $questionid, $answer,$mark) {
+		$result = new QuizResult();
+		$result = setQuiznum($quiznum);
 		$em = $this->getDoctrine()->getManager();
 		
 		    //insert into quizquestion values ($quiznum, $questionid, $answer)
@@ -101,7 +112,7 @@ class QuizController extends Controller
 			//	insert into quizresults (quiznum)
 			//if mark =true
 			//	update quizresults 
-			//		set correct_questions = correct_questions +1
+			//$result = setQuiznum($quiznum);correct_questions = correct_questions +1
 			//where quiznum = quiznum
 			//else
 			//update quizresults 
@@ -112,11 +123,9 @@ class QuizController extends Controller
     *  This function ends the current quiz
     * 
     */ 
-    public function endAction(){
+    public function endAction($response){
       
-	    $response = "Quiz complete";
-	    return $this->render('QuizBundle::quiz.html.twig',array('end'=> $response));
-	    
+	    return $this->render('QuizBundle::quiz.html.twig',array('end'=> $response));  
       }
 
    /**
@@ -128,23 +137,29 @@ class QuizController extends Controller
 	    $questioncnt=array();
 	    $pass = true;
 	    $quest = 'M';
-	    $points = '3';
+	    $points = '=3';
 	    $questionobj = new Question();
+	    $rsm = new ResultSetMapping();
+		$rsm->addScalarResult('quiznum', 'a');
 	    $em= $this->getDoctrine()->getManager();
-	    $quiznum = $em->createQuery("select MAX(A.quiznum)+1  from SetupBundle:Quiz A")->getResult();
+	    $quiznum = $em->createNativeQuery("select COUNT(A.quiznum)+1 AS 'quiznum'  from Quiz A",$rsm)->getResult();
 	    $quest_type = array('visualization','classification','spatial','mathematical','logic','pattern recognition','verbal');
 	    $qtype = array();
-	    
 	    for ($i = 0 ; $i <14; $i ++){
 		    if((isset($quest_type))){
 			    $type = array_rand($quest_type);
+			    var_dump($type);die;
+			    //$questionobj = $this->getAction($quest_type[$type],$quest, $points, $questioncnt);
+			    $questionobj = $this->getAction('classification','L', '<=2', $questioncnt);
+			    if (!$questionobj){
+					return $this->endAction("No Questions found");
+				}
+				else
+				var_dump($questionobj);
+			   // array_push ($qtype,$type); 
+			   // unset($quest_type[array_search($type,$quest_type)]);
 			    
-			    $questionobj = $this->getAction($type,$quest, $points, $questioncnt);
-			    
-			    array_push ($qtype,$type); 
-			    unset($quest_type[array_search($type,$quest_type)]);
-			    
-			   // $pass = $this->answerAction($quiznum, $questionobj);
+			   // $pass = $this->answerAction($quiznum[0]['a'], $questionobj);
 			    if ($quest == 'M'&& $pass==false) {
 				    $quest='L'; $points='<=2';
 				    }
@@ -164,7 +179,7 @@ class QuizController extends Controller
 				    $quest='H';$points='>3';
 				    }
 			    
-			    array_push($questioncnt, $questionobj->getQuestionId());
+			    //array_push($questioncnt, $questionobj->getQuestionId());
 		    }
 		    else
 			    {
@@ -173,7 +188,7 @@ class QuizController extends Controller
 				    }
 			    }
     }
-   
+   return $this->endAction("Quiz complete");
     }
     
 }

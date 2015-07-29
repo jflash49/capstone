@@ -2,7 +2,7 @@
 
 {% block body -%}
 <div class="row">
-<div class="large-12 columns">
+<div class="large-9 push-3 columns">
     <h1>Question list</h1>
 
     <table class="records_list">
@@ -11,10 +11,11 @@
                 <th>Questionid</th>
                 <th>Points</th>
                 <th>Difficulty</th>
-                <th>Linkedquestions</th>
+                <th>Linked Questions</th>
                 <th>Question</th>
                 <th>Answer</th>
-                <th>Mostcorrectanswer</th>
+                <th>Most Correct Answer MCA</th>
+                <th>Question Type</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                 <td>{{ entity.question }}</td>
                 <td>{{ entity.answer }}</td>
                 <td>{{ entity.mostCorrectAnswer }}</td>
+                <td>{{ entity.questionType }}</td>
                 <td>
                 <ul>
                     <li>
@@ -42,15 +44,16 @@
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
+ </div>
+<div class="large-3 pull-9 columns">
+<ul class="stack button-group ">
         <li>
-            <a href="{{ path('question_new') }}">
-                Create a new entry
+            <a href="{{ path('question_new') }}" class="button">
+                New
             </a>
         </li>
         <li>
-            <a href="{{ path('setup_homepage') }}">
+            <a href="{{ path('setup_homepage') }}" class="button">
 			Back
             </a>
         </li>

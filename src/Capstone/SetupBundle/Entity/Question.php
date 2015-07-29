@@ -246,12 +246,19 @@ class Question
         return $this->questionType;
     }
     
+   /**
+    * To String Function
+    *
+    * @return string
+    */
+    public function __toString()
+    {
+	    return (string) $this->getQuestionType();
+    }
     /**
-	*
-	*@return string
-	*/
-	public function __toString()
-	{
-		return (string) $this->getQuestionType();
-	}
+    * To String Function
+    *
+    * @return string
+    */
+    
 }
