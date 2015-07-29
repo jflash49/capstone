@@ -127,7 +127,9 @@ class ReportController extends Controller
 				AND B.questionType= 'verbal' 
 				AND C.userid = '".$id."'")->getResult();	
 		$math = $em->createQuery(" select SUM(CASE WHEN A.answer<>B.answer THEN 1 ELSE 0 END)AS mathematical,Count(B.questionType) AS Total 
-			from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
+			UM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END)AS 'pattern', Count(B.question_type) AS Total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID from SetupBundle:QuizQuestion A INNER JOIN A.quiznum C LEFT JOIN A.questionID B 
 			where A.questionID = B.questionId 
 				AND A.quiznum = C.quiznum 
 				AND B.questionType='mathematical' 
@@ -185,7 +187,7 @@ class ReportController extends Controller
 	public function regionalAction() {
 		$em = $this->getDoctrine()->getManager();
 		$report = $em->createQuery(
-		"SELECT Count(A) from SetupBundle:UserInfo A Group BY School")->getResult();
+		"SELECT Count(A) from SetupBundle:UserInfo A Group BY A.school")->getResult();
 		if (!$report){
 			throw $this->createNotFoundException(
 				'No Data found for Regional Participation'
