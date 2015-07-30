@@ -3,7 +3,6 @@
 namespace Capstone\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-//use FunQ\Bundle\FunQBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,11 +24,7 @@ class RegisterController extends Controller
         $defaultuser->setUsername('Leia');
         
         $form = $this->createForm(new RegisterFormType(),$defaultuser);
-           /* ->add('username', 'text')
-            ->add('email', 'email')
-            ->add('plainPassword', 'repeated', array( 'type' =>'password',))
-            ->getForm() 
-        ;*/
+          
         $form->handleRequest($request);
         if ($form->isValid()){
             $data = $form->getData();
@@ -45,8 +40,7 @@ class RegisterController extends Controller
            
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Welcome to the Death Star, have a magical day!')
-            ;
+                ->add('success', 'Welcome to FunQ');
             
             $this->authenticateUser($defaultuser);
             $key = '_security.'.$providerKey.'.target_path';
@@ -57,7 +51,7 @@ class RegisterController extends Controller
                  $url = $session->get($key);
                  $session->remove($key);
              } else {
-                 $url = $this->generateUrl('user');
+                 $url = $this->generateUrl('home');
             }//$url = $this->generateUrl('user');
             return $this->redirect($url);
         }

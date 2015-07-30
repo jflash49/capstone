@@ -1,9 +1,11 @@
 <?php 
-// src/Capstone/UserBundle/Entity/EventRepository.php
-namespace Capstone\UserBundle\Entity;
+// src/Capstone/SetupBundle/Entity/UserRepository.php
+namespace Capstone\SetupBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Doctrine\ORM\EntityRepository;
+
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 /**
@@ -14,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
  */
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
-    public function findOneByUsernameOrEmail()
+    public function findOneByUsernameOrEmail($username)
     {
         return $this->createQueryBuilder('u')
         ->andWhere('u.username = :username OR u.email = :email')

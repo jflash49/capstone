@@ -4,6 +4,7 @@ namespace Capstone\SetupBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Capstone\SetupBundle\Entity\User;
 use Capstone\SetupBundle\Form\UserType;
@@ -230,8 +231,6 @@ class UserController extends Controller
     /**
      *
      * 
-     *
-     *
      */
     private function enforceUserSecurity()
     {

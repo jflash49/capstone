@@ -1,5 +1,6 @@
 Capstone\SetupBundle\Entity\User:
     type: entity
+    repositoryClass: Capstone\SetupBundle\Entity\UserRepository
     table: User
     uniqueConstraints:
         Email:

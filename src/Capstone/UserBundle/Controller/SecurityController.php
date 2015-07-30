@@ -47,17 +47,7 @@ class SecurityController extends Controller
             );
         //);
     }
-    /*{
-        $helper = $this->get('security.authentication_utils');
-
-        return $this->render('security/login.html.twig', array(
-            // last username entered by the user (if any)
-            'last_username' => $helper->getLastUsername(),
-            // last authentication error (if any)
-            'error' => $helper->getLastAuthenticationError(),
-        ));
-    }*/
-
+    
     /**
      * This is the route the login form submits to.
      *

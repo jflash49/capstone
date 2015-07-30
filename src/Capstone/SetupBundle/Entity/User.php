@@ -5,11 +5,16 @@ namespace Capstone\SetupBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Serializable;
 /**
  * User
  * @ORM\Table(name='User')
- * @ORM\Entity(repositoryClass="Capstone\UserBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Capstone\SetupBundle\Entity\UserRepository")
+ * @UniqueEntity(fields="username", message="Username Taken")
+ * @UniqueEntity(fields="email", message="Email Taken")
  */
 class User implements AdvancedUserInterface, Serializable
 {
@@ -20,11 +25,17 @@ class User implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
+     * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\NotBlank(message="Please Enter Username")
+     * @Assert\Length(min=3, minMessage="Username must be atleast 3 characters!")
      */
     private $username;
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
@@ -52,6 +63,18 @@ class User implements AdvancedUserInterface, Serializable
     * @ORM\Column(type="boolean")
     */
     private $isActive = true;
+    
+   /**
+    * @Assert\NotBlank
+    * @Assert\Regex(
+    *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
+    *      message="Use 1 upper case letter, 1 lower case letter, and 1 number"
+    * )
+    */
+    private $plainPassword;
+    
+    
+    
     /**
      * Get userid
      *
@@ -158,7 +181,7 @@ class User implements AdvancedUserInterface, Serializable
 
     public function eraseCredentials()
     {
-	// blank for now
+	$this->setPlainPassword(null);
     }
 
     public function getSalt()
@@ -166,8 +189,6 @@ class User implements AdvancedUserInterface, Serializable
 	return null;
     }
 
-    
-    
     /**
      * Set info
      *
@@ -260,4 +281,25 @@ class User implements AdvancedUserInterface, Serializable
         $this->password,
     ) = unserialize($serialized);
     }
+
+    /**
+     * Get plainPassword
+     *
+     * @return plainPassword
+     */
+    public function getPlainPassword()
+    {
+	return $this->plainPassword;
+    }
+    /**
+     * Set plainPassword
+     *
+     * @return plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+	$this->plainPassword = $plainPassword;
+
+	return $this;
+}
 }
