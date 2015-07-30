@@ -22,7 +22,7 @@ class QuestionType extends AbstractType
             ->add('difficulty', 'choice', array (
 			'choices' => array ('l'=>'Low', 'm'=>'Medium','h'=>'High')))
             ->add('linkedQuestions')
-            ->add('question', 'file')
+            ->add('question')
             ->add('answer', 'choice', array (
 			'choices' => array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F')))
             ->add('mostCorrectAnswer','choice', array (

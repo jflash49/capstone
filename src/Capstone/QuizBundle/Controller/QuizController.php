@@ -43,12 +43,12 @@ class QuizController extends Controller
 	$result = new Question ();
 	$em= $this->getDoctrine()->getManager();
 	if(!empty($question)){
-	$list = implode(',',$question);
+	//$list = implode(',',$question);
 	$result =  $em->createQuery("Select A from SetupBundle:Question A 
 		where A.difficulty = '".$difficulty."' 
 			AND A.points".$points."
 			AND A.questionType='". $type."' 
-			AND A.questionId NOT IN (".$list.")")->getResult();
+			AND A.questionId NOT IN (".$question.")")->getResult();
 	}else{
 		$result =  $em->createQuery("Select A from SetupBundle:Question A 
 		where A.difficulty = '".$difficulty."' 
@@ -143,19 +143,21 @@ class QuizController extends Controller
 		$rsm->addScalarResult('quiznum', 'a');
 	    $em= $this->getDoctrine()->getManager();
 	    $quiznum = $em->createNativeQuery("select COUNT(A.quiznum)+1 AS 'quiznum'  from Quiz A",$rsm)->getResult();
+	   // $questionobj= $em->createQuery("select A  from SetupBundle:Question A")->getResult();
+	    //var_dump($questionobj);die;
 	    $quest_type = array('visualization','classification','spatial','mathematical','logic','pattern recognition','verbal');
 	    $qtype = array();
 	    for ($i = 0 ; $i <14; $i ++){
 		    if((isset($quest_type))){
 			    $type = array_rand($quest_type);
-			    var_dump($type);die;
 			    //$questionobj = $this->getAction($quest_type[$type],$quest, $points, $questioncnt);
-			    $questionobj = $this->getAction('classification','L', '<=2', $questioncnt);
+			    //$questionobj = $this->getAction('classification','l', '<3', $questioncnt);
+			    //var_dump($questionobj);die;
 			    if (!$questionobj){
 					return $this->endAction("No Questions found");
 				}
 				else
-				var_dump($questionobj);
+				//var_dump($questionobj);
 			   // array_push ($qtype,$type); 
 			   // unset($quest_type[array_search($type,$quest_type)]);
 			    

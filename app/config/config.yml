@@ -79,7 +79,7 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
     
-# Recaptcha COnfiguration    
+# Recaptcha Configuration    
 ewz_recaptcha:
     public_key:  here_is_your_public_key
     private_key: here_is_your_private_key
@@ -89,8 +89,20 @@ ewz_recaptcha:
     
     #host: proxy3.uwimona.edu.jm
    # port: 8080
+   
+# Sluggable Configuration
 stof_doctrine_extensions:
     orm:
          default:
              sluggable: true
-    
+             
+# Knappy Configuration             
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf
+        options:    []
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltoimage
+        options:    []    
