@@ -276,4 +276,10 @@ class UserInfo
     {
         return $this->owner;
     }
+    
+    public function __toString()
+    {
+	return (string) $this->getId();
+    
+    }
 }

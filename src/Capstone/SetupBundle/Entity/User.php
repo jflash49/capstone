@@ -301,12 +301,9 @@ class User implements AdvancedUserInterface, Serializable
 	return $this;
       }
       
+   
     public function __toString()
     {
-	return (string)$this->getInfo();
-    }
-    public function __toString()
-    {
-	return (string)$this->getUserid();
+	return (string) $this->getRoles();
     }
 }

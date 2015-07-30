@@ -1,8 +1,6 @@
-{% extends '::admin/layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block body -%}
-<div class="row">
-<div class="large-12 columns">
     <h1>User</h1>
 
     <table class="record_properties">
@@ -27,6 +25,10 @@
                 <th>Roles</th>
                 <td>{{ entity.roles }}</td>
             </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{{ entity.isActive }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -43,6 +45,4 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
-</div>
-</div>
 {% endblock %}

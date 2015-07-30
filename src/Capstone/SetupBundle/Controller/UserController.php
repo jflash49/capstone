@@ -4,7 +4,6 @@ namespace Capstone\SetupBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Capstone\SetupBundle\Entity\User;
 use Capstone\SetupBundle\Form\UserType;
@@ -96,7 +95,7 @@ class UserController extends Controller
      */
     public function showAction($id)
     {
- 
+       
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SetupBundle:User')->find($id);
@@ -119,7 +118,7 @@ class UserController extends Controller
      */
     public function editAction($id)
     {
-        $this->enforceUserSecurity();
+	$this->enforceUserSecurity();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SetupBundle:User')->find($id);
@@ -162,7 +161,7 @@ class UserController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $this->enforceUserSecurity();
+	$this->enforceUserSecurity();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SetupBundle:User')->find($id);
@@ -228,15 +227,11 @@ class UserController extends Controller
             ->getForm()
         ;
     }
-    /**
-     *
-     * 
-     */
     private function enforceUserSecurity()
     {
 	$securityContext = $this->container->get('security.context');
 	if (!$securityContext->isGranted('ROLE_USER')) {
-	    throw new AccessDeniedException('Need ROLE_USER!');
+	    throw new AccessDeniedException('NEEd ROLE_ADMIN!');
 	}
     }
 }
