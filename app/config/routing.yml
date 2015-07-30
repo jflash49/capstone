@@ -42,7 +42,12 @@ fun:
    resource: "@QuizBundle/Controller/"
    prefix: /app/
    type: annotation
+   
+user_routes:
+   resource: "@UserBundle/Controller/"
+   type: annotation
 # api:
+
 #    path: /api/
 #    defaults:
 #        _controller: FrameworkBundle:Template:template

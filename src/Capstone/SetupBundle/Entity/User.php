@@ -3,7 +3,7 @@
 namespace Capstone\SetupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  */
@@ -31,8 +31,11 @@ class User
 
     /**
      * @var string
+     * 
+     * @ORM\Column(type="json_array")
+     * 
      */
-    private $roles;
+    private $roles = array();
 
     /**
      * @var \Capstone\SetupBundle\Entity\UserInfo
@@ -139,9 +142,21 @@ class User
      */
     public function getRoles()
     {
-        return $this->roles;
+        return array ('ROLE_USER');//$this->roles;
     }
 
+    public function eraseCredentials()
+    {
+	// blank for now
+    }
+
+    public function getSalt()
+    {
+	return null;
+    }
+
+    
+    
     /**
      * Set info
      *

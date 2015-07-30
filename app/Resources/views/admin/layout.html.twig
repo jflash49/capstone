@@ -7,7 +7,11 @@
 <li><a href="{{path ('home')}}" class="button tiny">Home</a></li>
 <li><a href="#" class="button tiny">Info</a></li>
 <li><a href="#" class="button tiny">Admin/Teacher/Student</a></li>
-<li><a href="#" class="button tiny">Logout</a></li>
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+<li><a href="{{ path('logout') }}" class="button tiny">Logout</a></li>
+{% else %}
+<li><a href="{{ path('login_form') }}" class="button tiny">Login</a></li>
+{% endif %}
 </ul>
 <hr>
 <ul class="button-group left">

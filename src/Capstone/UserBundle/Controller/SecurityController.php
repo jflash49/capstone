@@ -14,21 +14,40 @@ namespace Capstone\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Security\Core\SecurityContextInterface ;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controller used to manage the application security.
  * See http://symfony.com/doc/current/cookbook/security/form_login_setup.html.
  *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Jevon Butler 
  */
 class SecurityController extends Controller
 {
     /**
-     * @Route("/login", name="security_login_form")
+     * @Route("/login", name="login_form")
+     * @Template()
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
+        $session = $request->getSession();
+
+        // get the login error if there is one
+        $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+        $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+        
+
+       // return $this->render(
+       //     'AcmeSecurityBundle:Security:login.html.twig',
+       return    array(
+                // last username entered by the user
+                'last_username' => $session->get(SecurityContextInterface::LAST_USERNAME),
+                'error'         => $error,
+            );
+        //);
+    }
+    /*{
         $helper = $this->get('security.authentication_utils');
 
         return $this->render('security/login.html.twig', array(
@@ -37,7 +56,7 @@ class SecurityController extends Controller
             // last authentication error (if any)
             'error' => $helper->getLastAuthenticationError(),
         ));
-    }
+    }*/
 
     /**
      * This is the route the login form submits to.
@@ -45,7 +64,7 @@ class SecurityController extends Controller
      * But, this will never be executed. Symfony will intercept this first
      * and handle the login automatically. See form_login in app/config/security.yml
      *
-     * @Route("/login_check", name="security_login_check")
+     * @Route("/login_check", name="login_check")
      */
     public function loginCheckAction()
     {
@@ -58,10 +77,12 @@ class SecurityController extends Controller
      * But, this will never be executed. Symfony will intercept this first
      * and handle the logout automatically. See logout in app/config/security.yml
      *
-     * @Route("/logout", name="security_logout")
+     * @Route("/logout", name="logout")
      */
     public function logoutAction()
     {
         throw new \Exception('This should never be reached!');
     }
+    
+    
 }

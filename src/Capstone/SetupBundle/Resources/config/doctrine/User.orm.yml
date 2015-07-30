@@ -38,7 +38,7 @@ Capstone\SetupBundle\Entity\User:
             comment: ''
             column: Password
         roles:
-            type: string
+            type: json_array
             nullable: true
             length: 255
             fixed: false

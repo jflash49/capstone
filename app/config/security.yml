@@ -1,20 +1,35 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    encoders:
+        Capstone\UserBundle\User: sha512
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        #our_database_users:
+       #     entity: { class: SetupBundle:User, property: username }
         in_memory:
-            memory: ~
-
+           memory:
+              users:
+                  user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                  admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+    
+    
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
+        secured_area:
+            pattern: ^/
+            form_login:
+                check_path: login_check
+                login_path: /login
+            logout:
+                path: logout
+                target: home
             anonymous: ~
+        #main:
+        #    anonymous: ~
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +37,6 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/new, roles: ROLE_ADMIN }
+        - { path: ^/create, roles: ROLE_USER }
