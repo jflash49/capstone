@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
-        $this->enforceUserSecurity();
+        $this->enforceUserSecurity('ROLE_USER_CREATE');
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -227,11 +227,11 @@ class UserController extends Controller
             ->getForm()
         ;
     }
-    private function enforceUserSecurity()
+    private function enforceUserSecurity($role = 'ROLE_USER')
     {
 	$securityContext = $this->container->get('security.context');
 	if (!$securityContext->isGranted('ROLE_USER')) {
-	    throw new AccessDeniedException('NEEd ROLE_ADMIN!');
+	    throw new AccessDeniedException('Need '.$role);
 	}
     }
 }

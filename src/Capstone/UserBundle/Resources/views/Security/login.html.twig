@@ -1,6 +1,8 @@
 {# src/Capstone/UserBundle/Resources/views/Security/login.html.twig #}
 {% extends '::base.html.twig' %}
 {% block body %}
+<div class="row">
+<div class="large-5 columns">
 <section class="login">
     <article>
 {% if error %}
@@ -19,9 +21,15 @@
         is redirected to on success (more details below)
         <input type="hidden" name="_target_path" value="/account" />
     #}
-
-    <button type="submit" class="button success">login</button>
+    <hr/>
+    Remember me <input type="checkbox" name="_remember_me" />
+    <button type="submit" class="button success" >login</button>
+    
+    <a href="{{ path('user_register') }}" class="button">Register</a>
+    
 </form>
 </article>
 </section>
+</div>
+</div>
 {% endblock %}
