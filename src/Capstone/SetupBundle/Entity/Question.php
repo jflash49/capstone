@@ -255,10 +255,6 @@ class Question
     {
 	    return (string) $this->getQuestionType();
     }
-    /**
-    * To String Function
-    *
-    * @return string
-    */
+    
     
 }

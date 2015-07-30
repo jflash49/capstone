@@ -1,5 +1,5 @@
 <?php 
-// src/FunQ/UserBundle/Controller/RegisterController.php
+// src/Capstone/UserBundle/Controller/RegisterController.php
 namespace Capstone\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -61,9 +61,7 @@ class RegisterController extends Controller
     
     private function encodePassword(User $user, $plainPassword)
     {
-        $encoder = $this->container->get('security.encoder_factory')
-            ->getEncoder($user)
-        ;
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
     
         return $encoder->encodePassword($plainPassword, $user->getSalt());
     }
@@ -72,7 +70,7 @@ class RegisterController extends Controller
     {
         $providerKey = 'secured_area'; // your firewall name
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-        $this->getSecurityContext()->setToken($token);
-       // $this->container->get('security.context')->setToken($token);
+        $this->get('security.context')->setToken($token);
+       
     }
 } 

@@ -2,7 +2,8 @@
 # http://symfony.com/doc/current/book/security.html
 security:
     encoders:
-        Capstone\SetupBundle\User: sha512
+        Capstone\SetupBundle\Entity\User: 
+            algorithm : sha512
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         our_database_users:

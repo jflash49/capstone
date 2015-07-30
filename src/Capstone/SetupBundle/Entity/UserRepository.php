@@ -47,7 +47,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ));
         }
 
-        if (!$refreshedUser = $this->find($user->getId())) {
+        if (!$refreshedUser = $this->find($user->getUserid())) {
             throw new UsernameNotFoundException(sprintf('User with id %s not found', json_encode($user->getId())));
         }
 

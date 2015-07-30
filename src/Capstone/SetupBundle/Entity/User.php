@@ -7,11 +7,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Serializable;
 /**
  * User
- * @ORM\Table(name='User')
+ * @ORM\Table(name="User")
  * @ORM\Entity(repositoryClass="Capstone\SetupBundle\Entity\UserRepository")
  * @UniqueEntity(fields="username", message="Username Taken")
  * @UniqueEntity(fields="email", message="Email Taken")
@@ -66,10 +67,7 @@ class User implements AdvancedUserInterface, Serializable
     
    /**
     * @Assert\NotBlank
-    * @Assert\Regex(
-    *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
-    *      message="Use 1 upper case letter, 1 lower case letter, and 1 number"
-    * )
+    * @Assert\Regex(pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/", message="Use 1 upper case letter, 1 lower case letter, and 1 number")
     */
     private $plainPassword;
     
@@ -263,7 +261,7 @@ class User implements AdvancedUserInterface, Serializable
     public function serialize()
     {
         return serialize(array(
-        $this->id,
+        $this->userid,
         $this->username,
         $this->password,
     ));
@@ -276,7 +274,7 @@ class User implements AdvancedUserInterface, Serializable
     public function unserialize($serialized)
     {
         list (
-        $this->id,
+        $this->userid,
         $this->username,
         $this->password,
     ) = unserialize($serialized);
@@ -301,5 +299,10 @@ class User implements AdvancedUserInterface, Serializable
 	$this->plainPassword = $plainPassword;
 
 	return $this;
-}
+      }
+      
+    public function __toString()
+    {
+	return (string)$this->getUserid();
+    }
 }

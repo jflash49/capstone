@@ -25,4 +25,4 @@ class DefaultController extends Controller
     return $this->get('knp_snappy.pdf')->generateFromHtml($this->renderView( 'ReportBundle::moe.html.twig',array('info' => $info)), '/home/demoy/Downloads/test1template.pdf');
     }
 }
-
+ 
