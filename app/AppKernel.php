@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Capstone\FileBundle\FileBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

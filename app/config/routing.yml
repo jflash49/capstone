@@ -1,3 +1,8 @@
+file:
+    resource: "@FileBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 report:
     resource: "@ReportBundle/Resources/config/routing.yml"
     prefix:   /report

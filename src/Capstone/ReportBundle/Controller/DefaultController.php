@@ -5,6 +5,7 @@ namespace Capstone\ReportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
@@ -14,11 +15,13 @@ class DefaultController extends Controller
     {
         return $this->render('ReportBundle:Default:index.html.twig');
     }
-    
-    public function studentAction ()
-    {
+    /**
+     * @Route("/MOE/{info}/",name="MOE_report")
+     * @return Pdf Page
+     */
+    public function pdfAction ($info){
 	
-    //return->render (ReportBundle:Default:index.html.twig, array (, ))
-    
+    $this->render ('ReportBundle::moe.html.twig', array('info' => $info ));
+    return $this->get('knp_snappy.pdf')->generateFromHtml($this->renderView( 'ReportBundle::moe.html.twig',array('info' => $info)), '/home/demoy/Downloads/test1template.pdf');
     }
 }
