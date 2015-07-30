@@ -18,7 +18,7 @@ class LoadUsers implements FixtureInterface, ContainerAwareInterface
       $user = new User();
       $user->setUsername('darth');
       // todo - fill in this encoded password... ya know... somehow...
-      $user->setPassword('');
+      $user->setPassword($this->encodePassword($user, 'darthpass'));
       $manager->persist($user);
 
       // the queries aren't done until now
@@ -28,5 +28,14 @@ class LoadUsers implements FixtureInterface, ContainerAwareInterface
     {
         $this->container = $container;
     }
+    private function encodePassword(User $user, $plainPassword)
+{
+    $encoder = $this->container->get('security.encoder_factory')
+        ->getEncoder($user)
+    ;
+
+    return $encoder->encodePassword($plainPassword, $user->getSalt());
+}
+
 }
 

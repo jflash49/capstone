@@ -4,10 +4,14 @@ namespace Capstone\SetupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Serializable;
 /**
  * User
+ * @ORM\Table(name='User')
+ * @ORM\Entity(repositoryClass="Capstone\UserBundle\Entity\UserRepository")
  */
-class User
+class User implements AdvancedUserInterface, Serializable
 {
     /**
      * @var integer
@@ -42,7 +46,12 @@ class User
      */
     private $info;
 
-
+    /**
+    * @var bool
+    *
+    * @ORM\Column(type="boolean")
+    */
+    private $isActive = true;
     /**
      * Get userid
      *
@@ -128,7 +137,7 @@ class User
      * @param string $roles
      * @return User
      */
-    public function setRoles($roles)
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
 
@@ -142,7 +151,9 @@ class User
      */
     public function getRoles()
     {
-        return array ('ROLE_USER');//$this->roles;
+	$roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return  array_unique($roles);
     }
 
     public function eraseCredentials()
@@ -178,5 +189,75 @@ class User
     public function getInfo()
     {
         return $this->info;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+    
+    
+    public function isAccountNonExpired()
+    {
+	return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+	return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+	return true;
+    }
+
+    public function isEnabled()
+    {
+	return $this->getIsActive();
+    }
+    
+    /**
+     * This function serializes the user information
+     * See Symfony Serializable Class
+     */
+    public function serialize()
+    {
+        return serialize(array(
+        $this->id,
+        $this->username,
+        $this->password,
+    ));
+    }
+    
+    /**
+     * This function unserializes the user information
+     * See Symfony Serializable Class
+     */
+    public function unserialize($serialized)
+    {
+        list (
+        $this->id,
+        $this->username,
+        $this->password,
+    ) = unserialize($serialized);
     }
 }

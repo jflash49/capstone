@@ -43,6 +43,13 @@ Capstone\SetupBundle\Entity\User:
             length: 255
             fixed: false
             comment: ''
+            column: Roles
+        isActive:
+            type: boolean
+            nullable: true
+            fixed: false
+            comment: ''
+            column: IsActive
     oneToOne:
         info:
             targetEntity: UserInfo
