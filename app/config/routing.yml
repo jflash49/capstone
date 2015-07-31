@@ -47,7 +47,9 @@ user_routes:
    resource: "@UserBundle/Controller/"
    type: annotation
    
-
+files:
+   resource: "@FileBundle/Resources/config/routing.yml"
+   prefix:   /file
 # api:
 
 #    path: /api/

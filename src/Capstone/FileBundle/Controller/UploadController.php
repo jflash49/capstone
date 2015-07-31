@@ -31,10 +31,11 @@ class UploadController extends Controller {
 	    $em->persist($document);
 	    $em->flush();
 
-	    return $this->redirectToRoute(...);
+	    return $this->redirectToRoute('home');
 	}
 
 	return array('form' => $form->createView());
+	}
 	// ...
     
  /*   public function uploadAction(Request $request) {

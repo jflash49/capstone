@@ -96,7 +96,7 @@ class DocumentController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('FileBundle:Document')->find($id);
-
+	$path = $entity->getUploadRootDir().'/'.$entity->getId().'.'.$entity->getPath();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Document entity.');
         }
@@ -105,6 +105,7 @@ class DocumentController extends Controller
 
         return $this->render('FileBundle:Document:show.html.twig', array(
             'entity'      => $entity,
+            'path' => $path,
             'delete_form' => $deleteForm->createView(),
         ));
     }

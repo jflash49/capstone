@@ -16,7 +16,7 @@ class DefaultController extends Controller
         return $this->render('ReportBundle:Default:index.html.twig');
     }
     /**
-     * @Route("/MOE/{info}/",name="MOE_report")
+     * 
      * @return Pdf Page
      */
     public function pdfAction ($info){

@@ -1,0 +1,164 @@
+
+Andreas Glaser – Remote Freelancer
+Development, Technology and my work
+Skip to content
+
+    HomePortfolio
+        Sweebe.com
+        Ticketfriend.com – Event Reports
+        Appleby.ie
+        Cowandgate.ie
+        Mumslikeus.ie
+        Carabao-island.com
+        5loops.net
+        Susanne-glaser.de
+    DownloadsContact
+
+Symfony2 – Two separate forms in one controller
+2 Comments	
+
+After spending some time working with Symfony 2, I had to figure out how to manage two separate forms in one controller. This does sound like a trivial issue but due to the nature of Symfony’s documentation it isn’t always easy to find an answer. So here you go: Two forms, one controller!
+PHP
+<?php
+
+namespace AndreasGlaser\DemoBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+/**
+ * @Route("/multi-form")
+ *
+ * @author Andreas Glaser <andreas@glaser.me>
+ */
+class MultiFormController extends Controller
+{
+
+    /**
+     * @Template()
+     * @Route("/")
+     *
+     * @author Andreas Glaser <andreas@glaser.me>
+     */
+    public function indexAction()
+    {
+        // get request
+        $request = $this->getRequest();
+
+        // build form
+        $formBuilderOne = $this->container
+                ->get('form.factory')
+                ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
+                ->add('name', 'text')
+                ->add('submit', 'submit');
+
+        // get form from form builder
+        $formOne = $formBuilderOne
+                ->getForm()
+                ->handleRequest($request);
+
+        // build form
+        $formBuilderTwo = $this->container
+                ->get('form.factory')
+                ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
+                ->add('name', 'text')
+                ->add('submit', 'submit');
+
+        // get form from form builder
+        $formTwo = $formBuilderTwo
+                ->getForm()
+                ->handleRequest($request);
+
+        // wait for valid form input
+        if ($formOne->isValid())
+        {
+            // do stuff...
+        }
+
+        // wait for valid form input
+        if ($formTwo->isValid())
+        {
+            // do stuff...
+        }
+
+        // bind template variables
+        return array(
+            'formOne' => $formOne->createView(),
+            'formTwo' => $formTwo->createView()
+        );
+    }
+
+}
+<?php
+ 
+namespace AndreasGlaser\DemoBundle\Controller;
+ 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ 
+/**
+ * @Route("/multi-form")
+ *
+ * @author Andreas Glaser <andreas@glaser.me>
+ */
+class MultiFormController extends Controller
+{
+ 
+    /**
+     * @Template()
+     * @Route("/")
+     *
+     * @author Andreas Glaser <andreas@glaser.me>
+     */
+    public function indexAction()
+    {
+        // get request
+        $request = $this->getRequest();
+ 
+        // build form
+        $formBuilderOne = $this->container
+                ->get('form.factory')
+                ->createNamedBuilder('formOne', 'form', NULL, array('validation_groups' => array()))
+                ->add('name', 'text')
+                ->add('submit', 'submit');
+ 
+        // get form from form builder
+        $formOne = $formBuilderOne
+                ->getForm()
+                ->handleRequest($request);
+ 
+        // build form
+        $formBuilderTwo = $this->container
+                ->get('form.factory')
+                ->createNamedBuilder('formTwo', 'form', NULL, array('validation_groups' => array()))
+                ->add('name', 'text')
+                ->add('submit', 'submit');
+ 
+        // get form from form builder
+        $formTwo = $formBuilderTwo
+                ->getForm()
+                ->handleRequest($request);
+ 
+        // wait for valid form input
+        if ($formOne->isValid())
+        {
+            // do stuff...
+        }
+ 
+        // wait for valid form input
+        if ($formTwo->isValid())
+        {
+            // do stuff...
+        }
+ 
+        // bind template variables
+        return array(
+            'formOne' => $formOne->createView(),
+            'formTwo' => $formTwo->createView()
+        );
+    }
+ 
+}
+

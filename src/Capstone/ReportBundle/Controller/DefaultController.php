@@ -21,8 +21,8 @@ class DefaultController extends Controller
      */
     public function pdfAction ($info){
 	
-    $this->render ('ReportBundle::moe.html.twig', array('info' => $info ));
-    return $this->get('knp_snappy.pdf')->generateFromHtml($this->renderView( 'ReportBundle::moe.html.twig',array('info' => $info)), '/home/demoy/Downloads/test1template.pdf');
+   return $this->render ('ReportBundle::moe.html.twig', array('info' => $info ));
+    /*return $this->get('knp_snappy.pdf')->generateFromHtml($this->renderView( 'ReportBundle::moe.html.twig',array('info' => $info)), '/home/demoy/Downloads/test1template.pdf');*/
     }
 }
 
