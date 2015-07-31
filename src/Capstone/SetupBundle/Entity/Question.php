@@ -255,6 +255,4 @@ class Question
     {
 	    return (string) $this->getQuestionType();
     }
-    
-    
 }

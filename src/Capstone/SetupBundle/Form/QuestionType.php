@@ -5,7 +5,7 @@ namespace Capstone\SetupBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Capstone\FileBundle\Form\DocumentType;
 
 class QuestionType extends AbstractType
 {
@@ -27,8 +27,8 @@ class QuestionType extends AbstractType
 			'choices' => array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F')))
             ->add('mostCorrectAnswer','choice', array (
 			'choices' => array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F')))
-            ->add('questionType')
-        ;
+            ->add('questionType');
+       
     }
     
     /**

@@ -7,7 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Capstone\SetupBundle\Entity\Question;
 use Capstone\SetupBundle\Form\QuestionType;
+use Capstone\FileBundle\Entity\Document;
+use Capstone\FileBundle\Form\DocumentType;
+use Capstone\FileBundle\Form\MergedType;
 
+
+use Capstone\FileBundle\Controller\UploadController AS Upload;
 /**
  * Question controller.
  *
@@ -36,9 +41,17 @@ class QuestionController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Question();
+        //
+        $document = new Document();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-     
+        //
+	 $form2 = $this->createForm(new DocumentType(), $document,array(
+            'action' => $this->generateUrl('question_create'),
+            'method' => 'POST',
+        ));
+	$form2 ->add('submit', 'submit', array('label' => 'Create'));
+	//
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -49,7 +62,9 @@ class QuestionController extends Controller
 
         return $this->render('SetupBundle:Question:new.html.twig', array(
             'entity' => $entity,
+            'document'=>$document,
             'form'   => $form->createView(),
+            'form2' => $form2->createView()
 
         ));
     }
@@ -67,7 +82,7 @@ class QuestionController extends Controller
             'action' => $this->generateUrl('question_create'),
             'method' => 'POST',
         ));
-
+	
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -80,12 +95,22 @@ class QuestionController extends Controller
     public function newAction()
     {
         $entity = new Question();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('SetupBundle:Question:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+        $document = new Document();
+        $form = $this->createCreateForm($entity);
+ 
+       //
+        $form2 = $this->createForm(new DocumentType(), $document,array(
+            'action' => $this->generateUrl('question_create'),
+            'method' => 'POST',
         ));
+
+	$form2 ->add('submit', 'submit', array('label' => 'Create'));	  
+	
+        return $this->render('SetupBundle:Question:new.html.twig', array(
+        'entity'=>$entity,
+        'document'=>$document,
+        'form'=> $form->createView(), 
+        'form2'=>$form2->createView()));
     }
 
     /**

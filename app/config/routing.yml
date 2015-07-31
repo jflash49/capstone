@@ -46,6 +46,8 @@ fun:
 user_routes:
    resource: "@UserBundle/Controller/"
    type: annotation
+   
+
 # api:
 
 #    path: /api/

@@ -7,29 +7,36 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Capstone\FileBundle\Entity\Document;
 
-class UploadController extends Controller {  
-    
-    public function uploadAction(){
-	// ...
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+class UploadController extends Controller {  
+    /**
+     *
+     *
+     */     
+    public function uploadAction(Request $request)
+    {
+	$document = new Document();
 	$form = $this->createFormBuilder($document)
 	    ->add('name')
 	    ->add('file')
 	    ->getForm();
+
 	$form->handleRequest($request);
 
 	if ($form->isValid()) {
 	    $em = $this->getDoctrine()->getManager();
-	    	    
+
 	    $em->persist($document);
 	    $em->flush();
 
-	    return $this->redirectToRoute("localhost:8000/");
+	    return $this->redirectToRoute(...);
 	}
 
-    return array('form' => $form->createView());
+	return array('form' => $form->createView());
 	// ...
-    }
+    
  /*   public function uploadAction(Request $request) {
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('img');

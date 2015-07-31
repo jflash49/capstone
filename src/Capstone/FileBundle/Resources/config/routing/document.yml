@@ -1,0 +1,30 @@
+document:
+    path:     /
+    defaults: { _controller: "FileBundle:Document:index" }
+
+document_show:
+    path:     /{id}/show
+    defaults: { _controller: "FileBundle:Document:show" }
+
+document_new:
+    path:     /new
+    defaults: { _controller: "FileBundle:Document:new" }
+
+document_create:
+    path:     /create
+    defaults: { _controller: "FileBundle:Document:create" }
+    methods:  POST
+
+document_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FileBundle:Document:edit" }
+
+document_update:
+    path:     /{id}/update
+    defaults: { _controller: "FileBundle:Document:update" }
+    methods:  [POST, PUT]
+
+document_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FileBundle:Document:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,4 @@
+file_document:
+    resource: "@FileBundle/Resources/config/routing/document.yml"
+    prefix:   /document
+
