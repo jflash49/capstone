@@ -5,12 +5,34 @@
 <div class="large-12 columns">
 <ul class="button-group right">
 <li><a href="{{path ('home')}}" class="button tiny">Home</a></li>
-<li><a href="#" class="button tiny">Info</a></li>
-<li><a href="#" class="button tiny">Admin/Teacher/Student</a></li>
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-<li><a href="{{ path('logout') }}" class="button tiny">Logout {{ app.user.username }}</a></li>
+ 
+ <li><a href="#" class="button tiny">Info</a></li>
+  {% if is_granted('ROLE_USER') %}
+  
+  <li><a href="#" class="button tiny">Student</a></li>
+  
+  {% endif %}
+  {% if is_granted('ROLE_ADMIN') %}
+    
+    <li><a href="#" class="button tiny">Teacher</a></li>
+    
+  {% endif %}
+  {% if is_granted('ROLE_EXPERT') %}
+  
+  <li><a href="#" class="button tiny">Expert</a></li>
+  
+  {% endif %}
+  {% if is_granted('ROLE_SUPER_ADMIN') %}
+  
+  <li><a href="#" class="button tiny">Admin</a></li>
+  
+  {% endif %}
+  <li><a href="{{ path('logout') }}" class="button tiny  ">Logout ({{ app.user.username }})</a></li>
+  
 {% else %}
-<li><a href="{{ path('login_form') }}" class="button tiny">Login</a></li>
+  <li><a href="{{ path('login_form') }}" class="button tiny">Login</a></li>
+  <li><a href="{{ path('user_register') }}" class="button tiny">SignUp</a></li>
 {% endif %}
 </ul>
 <hr>

@@ -7,9 +7,30 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Capstone\FileBundle\Entity\Document;
 
-class UploadController extends Controller {
+class UploadController extends Controller {  
+    
+    public function uploadAction(){
+	// ...
 
-    public function uploadAction(Request $request) {
+	$form = $this->createFormBuilder($document)
+	    ->add('name')
+	    ->add('file')
+	    ->getForm();
+	$form->handleRequest($request);
+
+	if ($form->isValid()) {
+	    $em = $this->getDoctrine()->getManager();
+	    	    
+	    $em->persist($document);
+	    $em->flush();
+
+	    return $this->redirectToRoute("localhost:8000/");
+	}
+
+    return array('form' => $form->createView());
+	// ...
+    }
+ /*   public function uploadAction(Request $request) {
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('img');
             $status = 'success';
@@ -45,7 +66,7 @@ class UploadController extends Controller {
         } else {
             return $this->render('FileBundle:Default:index.html.twig');
         }
-    }
+    }*/
 
 }
 
