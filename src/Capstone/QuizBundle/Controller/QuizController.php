@@ -55,7 +55,6 @@ class QuizController extends Controller
 			AND A.points".$points."
 			AND A.questionType='". $type."'")->getResult();
 	}
-	var_dump($result);die;
 	if (!$result){
 		throw $this->createNotFoundException('Unable to find Question entity.');     
 		}
@@ -70,8 +69,13 @@ class QuizController extends Controller
      */ 
     public function answerAction($quiznum, $question){
 	$mark = true;
-	$this->render('QuizBundle::quiz.html.twig',array('question'=> $question['question']));
-	if(isset($_POST['answer'])){
+	$obj = new QuizQuestion();
+	$obj->setParameter('quiznum', $quiznum);
+	$form = $this->createForm(new QuizQuestionType(), $obj);
+	$form->handleRequest($request);	
+	/*if($form->isValid()){
+		$em= $this->getDoctrine()->getManager();
+		$em->persist($obj);*/
 			$answer = $_POST['answer'];
 			if ($answer!= $question['answer'])
 				{
@@ -79,10 +83,10 @@ class QuizController extends Controller
 				}
 			//$this->storeAction($quiznum, $question['question_ID'], $answer,$mark);
 			return $mark;
-		}
-		else {
-			throw new \Exception ("No answer");
-		}
+		//}
+		//else {
+		//	throw new \Exception ("No answer");
+		//}
     }
   /**
     * 
@@ -147,16 +151,16 @@ class QuizController extends Controller
 	    //var_dump($questionobj);die;
 	    $quest_type = array('visualization','classification','spatial','mathematical','logic','pattern recognition','verbal');
 	    $qtype = array();
-	    for ($i = 0 ; $i <14; $i ++){
+	   // for ($i = 0 ; $i <14; $i ++){
 		    if((isset($quest_type))){
 			    $type = array_rand($quest_type);
-			    //$questionobj = $this->getAction($quest_type[$type],$quest, $points, $questioncnt);
+			    $questionobj = $this->getAction($quest_type[$type],$quest, $points, $questioncnt);
 			    //$questionobj = $this->getAction('classification','l', '<3', $questioncnt);
 			    //var_dump($questionobj);die;
 			    if (!$questionobj){
 					return $this->endAction("No Questions found");
 				}
-				else
+				else{
 				//var_dump($questionobj);
 			   // array_push ($qtype,$type); 
 			   // unset($quest_type[array_search($type,$quest_type)]);
@@ -182,12 +186,12 @@ class QuizController extends Controller
 				    }
 			    
 			    //array_push($questioncnt, $questionobj->getQuestionId());
-		    }
-		    else
-			    {
-				    foreach ($qtype as $q  ){
-					    array_push($quest_type, $q);
-				    }
+		 //   }
+		////    else
+		//	    {
+		//		    foreach ($qtype as $q  ){
+					//    array_push($quest_type, $q);
+		//		    }
 			    }
     }
    return $this->endAction("Quiz complete");

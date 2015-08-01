@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Capstone\FileBundle\Form\DocumentType;
+use Doctrine\ORM\EntityRepository;
 
 class QuestionType extends AbstractType
 {
@@ -29,7 +30,12 @@ class QuestionType extends AbstractType
 			'choices' => array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F')))
             ->add('questionType')
             ->add('doc', 'entity', array(
-            'class'=>'Capstone\FileBundle\Entity\Document'));
+            'class'=>'Capstone\FileBundle\Entity\Document',
+            'query_builder'=>function (EntityRepository $er) {
+	      return $er->createQueryBuilder('u')
+	      ->orderBy('u.id','ASC');
+            }
+            ));
        
     }
     
