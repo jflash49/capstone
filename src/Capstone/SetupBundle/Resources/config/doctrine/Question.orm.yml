@@ -62,4 +62,11 @@ Capstone\SetupBundle\Entity\Question:
                 question_type:
                     referencedColumnName: question_type
             orphanRemoval: false
+    oneToOne:
+         doc:
+             targetEntity: Capstone\FileBundle\Entity\Document
+             cascade: { }
+             joinColumn:
+                 name: doc_id
+                 referencedColumnName: id
     lifecycleCallbacks: {  }

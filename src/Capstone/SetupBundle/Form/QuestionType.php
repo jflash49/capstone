@@ -27,7 +27,9 @@ class QuestionType extends AbstractType
 			'choices' => array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F')))
             ->add('mostCorrectAnswer','choice', array (
 			'choices' => array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F')))
-            ->add('questionType');
+            ->add('questionType')
+            ->add('doc', 'entity', array(
+            'class'=>'Capstone\FileBundle\Entity\Document'));
        
     }
     

@@ -211,4 +211,9 @@ class Document
     {
         return $this->path;
     }
+    
+     public function __toString()
+    {
+	  return (string)$this->getId();
+    }
 }

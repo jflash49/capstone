@@ -41,17 +41,9 @@ class QuestionController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Question();
-        //
-        $document = new Document();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        //
-	 $form2 = $this->createForm(new DocumentType(), $document,array(
-            'action' => $this->generateUrl('question_create'),
-            'method' => 'POST',
-        ));
-	$form2 ->add('submit', 'submit', array('label' => 'Create'));
-	//
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -62,9 +54,8 @@ class QuestionController extends Controller
 
         return $this->render('SetupBundle:Question:new.html.twig', array(
             'entity' => $entity,
-            'document'=>$document,
-            'form'   => $form->createView(),
-            'form2' => $form2->createView()
+            'form'   => $form->createView()
+            
 
         ));
     }
@@ -95,22 +86,11 @@ class QuestionController extends Controller
     public function newAction()
     {
         $entity = new Question();
-        $document = new Document();
         $form = $this->createCreateForm($entity);
- 
-       //
-        $form2 = $this->createForm(new DocumentType(), $document,array(
-            'action' => $this->generateUrl('question_create'),
-            'method' => 'POST',
-        ));
-
-	$form2 ->add('submit', 'submit', array('label' => 'Create'));	  
-	
         return $this->render('SetupBundle:Question:new.html.twig', array(
         'entity'=>$entity,
-        'document'=>$document,
-        'form'=> $form->createView(), 
-        'form2'=>$form2->createView()));
+        'form'=> $form->createView() 
+       ));
     }
 
     /**

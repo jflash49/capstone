@@ -73,7 +73,13 @@ class Question
      */
     protected $questionType;
 
-
+    /**
+     * @var \Capstone\FileBundle\Entity\Document
+     *
+     * @ORM\OneToOne(targetEntity="Capstone\FileBundle\Entity\Document")
+     * 
+     */
+    protected $doc;
 
     /**
      * Get questionId
@@ -246,12 +252,13 @@ class Question
         return $this->questionType;
     }
     
-    /**
-	*
-	*@return string
-	*/
-	public function __toString()
-	{
-		return (string) $this->getQuestionType();
-	}
+   /**
+    * To String Function
+    *
+    * @return string
+    */
+    public function __toString()
+    {
+	    return (string) $this->getQuestionType();
+    }
 }

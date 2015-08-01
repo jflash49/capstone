@@ -73,7 +73,13 @@ class Question
      */
     protected $questionType;
 
-
+    /**
+     * @var \Capstone\FileBundle\Entity\Document
+     *
+     * @ORM\OneToOne(targetEntity="Capstone\FileBundle\Entity\Document")
+     * 
+     */
+    protected $doc;
 
     /**
      * Get questionId
@@ -255,4 +261,29 @@ class Question
     {
 	    return (string) $this->getQuestionType();
     }
+
+    /**
+     * Set doc
+     *
+     * @param \Capstone\FileBundle\Entity\Document $doc
+     * @return Question
+     */
+    public function setDoc(\Capstone\FileBundle\Entity\Document $doc = null)
+    {
+        $this->doc = $doc;
+
+        return $this;
+    }
+
+    /**
+     * Get doc
+     *
+     * @return \Capstone\FileBundle\Entity\Document 
+     */
+    public function getDoc()
+    {
+        return $this->doc;
+    }
+    
+   
 }
