@@ -259,7 +259,7 @@ class Question
     */
     public function __toString()
     {
-	    return (string) $this->getQuestionType();
+	    return (string) $this->getQuestionId().",".$this->getQuestion().",".$this->getDoc()->getName();
     }
 
     /**

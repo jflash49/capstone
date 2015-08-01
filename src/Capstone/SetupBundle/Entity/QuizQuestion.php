@@ -109,4 +109,14 @@ class QuizQuestion
     {
         return $this->questionID;
     }
+    
+    /**
+     * To String Function
+     * 
+     *
+     */
+     public function __toString()
+     {
+	return (string) $this->getId(). ",".$this->getAnswer().",".$this->getQuiznum().",".$this->getQuestionID();
+     }
 }

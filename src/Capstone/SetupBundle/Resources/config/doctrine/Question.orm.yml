@@ -1,6 +1,7 @@
 Capstone\SetupBundle\Entity\Question:
     type: entity
     table: Question
+    repositoryClass: Capstone\SetupBundle\Entity\QuestionRepository
     indexes:
         question_type:
             columns:

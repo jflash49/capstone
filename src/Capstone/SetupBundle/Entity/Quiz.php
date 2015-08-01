@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Quiz
  *
+ * @ORM\Entity(repositoryClass="Capstone\SetupBundle\Entity\QuizRepository")
  * @ORM\Table(name="Quiz", indexes={@ORM\Index(name="UserID", columns={"UserID"})})
- * @ORM\Entity
+ * 
  */
 class Quiz
 {

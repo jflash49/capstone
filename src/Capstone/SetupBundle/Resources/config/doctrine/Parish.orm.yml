@@ -1,6 +1,7 @@
 Capstone\SetupBundle\Entity\Parish:
     type: entity
     table: parish
+    repositoryClass: Capstone\SetupBundle\Entity\ParishRepository
     id:
         parishId:
             type: integer

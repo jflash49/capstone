@@ -1,27 +1,20 @@
 {#  src/Capstone/QuizBundle/Resources/views/Default/index.html.twig#}
 {% extends 'QuizBundle:Default:index.html.twig' %}
+{% set array = question |split(' ', 2) %}
 {% block title %} FunQ Quiz{% endblock %}
 {% block body %}
 <div class="row">
 <div class="large-12 columns">
 
 {% block feed %}
-  {{ end }}
+{#render (controller ('QuizBundle:Controller:answer')) }#}
+  {{ end }} ,{{ attribute(array,1)  }}
 {% endblock %}
 </div>
     </div>
 {% endblock %}
 {% block javascript %}
 <script >
-
-
-
-
-
-
-
-
-
 
 </script>
 {% endblock %}

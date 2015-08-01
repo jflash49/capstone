@@ -1,6 +1,7 @@
 Capstone\SetupBundle\Entity\Questiontype:
     type: entity
     table: QuestionType
+    repositoryClass: Capstone\SetupBundle\Entity\QuuestiontypeRepository
     id:
         questionType:
             type: string

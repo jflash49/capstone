@@ -214,7 +214,7 @@ class Document
     
      public function __toString()
     {
-	  return (string)$this->getId();
+	  return (string)$this->getUploadDir().'/'.$this->getId().'.'.$this->getPath();;
     }
     
 }

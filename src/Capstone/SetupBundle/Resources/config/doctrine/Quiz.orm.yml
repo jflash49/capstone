@@ -1,6 +1,7 @@
 Capstone\SetupBundle\Entity\Quiz:
     type: entity
     table: Quiz
+    repositoryClass: Capstone\SetupBundle\Entity\QuizRepository
     indexes:
         UserID:
             columns:

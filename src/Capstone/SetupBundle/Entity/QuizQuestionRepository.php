@@ -4,6 +4,7 @@ namespace Capstone\SetupBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+use Doctrine\ORM\Query\ResultSetMapping;
 /**
  * QuizQuestionRepository
  *
@@ -12,4 +13,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuizQuestionRepository extends EntityRepository
 {
+
+    public function  findScoreByType($id, $type, $rsm)
+    {
+    
+    
+      return $this->getEntityManager()
+      ->createNativeQuery("select  IFNULL(SUM(CASE WHEN A.answer <> B.answer THEN 1 ELSE 0 END),0)AS amount, Count(B.question_type) AS total 
+			from QuizQuestion A JOIN Quiz C JOIN Question B 
+			where A.question_id_id = B.question_ID 
+				AND A.quiznum_id = C.quiznum 
+				AND B.question_type= 'verbal' 
+				AND C.userid = '".$id."'",$rsm)->getResult();
+
+    }
 }

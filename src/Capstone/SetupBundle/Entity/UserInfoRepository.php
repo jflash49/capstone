@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserInfoRepository extends EntityRepository
 {
+
+    public function findBySchool($school){
+	return $this->getEntityManager()->createQuery("Select A  from SetupBundle:UserInfo A where A.school='" .$school."'")->getResult();
+    
+    }
+    
+    public function findByClass ($class) {
+	return $this->getEntityManager()->createQuery("Select A  from SetupBundle:UserInfo A where A.class='" .$class."'")->getResult();
+    }
+    
+    public function findRegionalResult()
+    {
+	return $this->getEntityManager()->createQuery("SELECT Count(A) from SetupBundle:UserInfo A Group BY A.school")->getResult();
+    }
 }

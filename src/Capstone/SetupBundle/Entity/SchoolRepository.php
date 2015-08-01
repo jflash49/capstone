@@ -1,9 +1,8 @@
- <?php
+<?php
 
 namespace Capstone\SetupBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
 /**
  * SchoolRepository
  *
@@ -12,4 +11,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class SchoolRepository extends EntityRepository
 {
+    
+  public function findRegion($region){
+      
+      
+	  return $this->getEntityManager()
+            ->createQuery("SELECT A.schoolId, A.school, B.parish from SetupBundle:School A JOIN SetupBundle:Parish B WHERE A.parish = B.parishId and B.parish='".$region."'")->getResult();
+      }
 }

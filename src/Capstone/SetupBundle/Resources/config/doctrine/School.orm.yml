@@ -1,6 +1,7 @@
 Capstone\SetupBundle\Entity\School:
     type: entity
     table: school
+    repositoryClass: Capstone\SetupBundle\Entity\SchoolRepository
     indexes:
         parish_id:
             columns:

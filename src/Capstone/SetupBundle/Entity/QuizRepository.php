@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuizRepository extends EntityRepository
 {
+
+
+      public function findNextQuizNumber(){
+      
+      
+	  return $this->getEntityManager()
+            ->createQuery(
+                'SELECT Count(p)+1 FROM SetupBundle:Quiz p'
+            )
+            ->getResult();
+      }
 } 
