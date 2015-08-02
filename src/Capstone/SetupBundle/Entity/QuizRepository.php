@@ -19,8 +19,9 @@ class QuizRepository extends EntityRepository
       
 	  return $this->getEntityManager()
             ->createQuery(
-                'SELECT Count(p)+1 FROM SetupBundle:Quiz p'
-            )
+                'SELECT (Count(p)+1) AS quiznum FROM SetupBundle:Quiz p'
+            
+)
             ->getResult();
       }
 } 

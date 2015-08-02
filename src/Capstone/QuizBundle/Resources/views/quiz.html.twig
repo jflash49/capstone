@@ -1,22 +1,30 @@
 {#  src/Capstone/QuizBundle/Resources/views/Default/index.html.twig#}
 {% extends 'QuizBundle:Default:index.html.twig' %}
-{% set array = question |split(' ', 2) %}
+{#% set array =  info.questioninfo explode(',',info.question ) %#}
 {% block title %} FunQ Quiz{% endblock %}
 {% block body %}
 <div class="row">
 <div class="large-12 columns">
 
 {% block feed %}
-{#render (controller ('QuizBundle:Controller:answer')) }#}
-  {{ end }} ,{{ attribute(array,1)  }}
+{#{render (controller ('QuizBundle:Quiz:getAnswer')) }#}
+  {{ end }} , {{ info.quiznum }}, {{info.question[0]}}{#{ attribute(array,0)  }#}
 {% endblock %}
 </div>
     </div>
 {% endblock %}
 {% block javascript %}
 <script >
-
+var quest_type = new Array('visualization','classification','spatial','mathematical','logic','pattern recognition','verbal');
+var qtype =new Array();
 </script>
+
+
+
+
+zi score = xi - meanof all /standard dev of all xi is respondent score
+
+standard dev = sqr(sum(squared(iq value - mean))/ count(values)-1)
 {% endblock %}
 	
 	

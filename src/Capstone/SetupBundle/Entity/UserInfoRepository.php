@@ -26,4 +26,19 @@ class UserInfoRepository extends EntityRepository
     {
 	return $this->getEntityManager()->createQuery("SELECT Count(A) from SetupBundle:UserInfo A Group BY A.school")->getResult();
     }
+    public function findMean()
+    {
+      return $this->getEntityManager()
+	->createQuery("Select AVG(A.IQ) AS Average from SetupBundle:UserInfo A")->getResult();
+    }
+    public function findStdDev()
+    {
+    return $this->getEntityManager()
+    ->createQuery("select SQRT(SUM(POW(( CASE WHEN (B.IQ - (Select AVG(A.IQ) from SetupBundle:UserInfo A)) <0 THEN 0 ELSE (B.IQ-(select AVG(A.IQ) from SetupBundle:UserInfo A))  END),2))/(select  count(C) from SetupBundle:UserInfo C)) AS stddev from User B")->getResult();
+    }
+    public function findCount()
+    {
+      return $this->getEntityManager()
+	->createQuery("Select Count(A) from SetupdBundle:UserInfo")->getResult();
+    }
 }

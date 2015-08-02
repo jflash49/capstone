@@ -12,4 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuizResultsRepository extends EntityRepository
 {
+
+
+
+
 }
