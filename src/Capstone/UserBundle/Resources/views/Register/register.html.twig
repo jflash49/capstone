@@ -9,14 +9,18 @@
 
 {% block body %}
 <div class="row">
-<div class="large-12 columns">
+  <div class="large-12 columns">
+    <h1>Registration</h1>
+  </div>
+</div>
+
 <div class="row">
-<div class="large-9  columns">
-<section class="main-block">
+<div class="large-8 medium-8 columns">
+<hr>
+<h5>We&rsquo;ll just need a bit of information:</h5>
+<section class="content">
     <article>
         <section>
-            <h1>Register</h1>
-
             <form action="{{ path('user_register') }}" method="POST" novalidate="novalidate">
                 {{ form_errors(form) }}
 
@@ -35,4 +39,5 @@
 </div>
 </div>
 </div>
+{
 {% endblock %}

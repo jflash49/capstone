@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {%block title %} Foundation Template | Banner {% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/setup/css/style.css')}}"/>
+{% endblock %}
 {% block header%}
+
 	<div class="row">
 <div class="large-12 columns">
 <ul class="button-group right">
