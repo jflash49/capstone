@@ -13,6 +13,7 @@ use Capstone\SetupBundle\Entity\Question;
 use Capstone\SetupBundle\Entity\QuizResults;
 use Capstone\SetupBundle\Entity\QuizQuestion;
 use Capstone\SetupBundle\Entity\Quiz;
+use Capstone\SetupBundle\Entity\user;
 /**
  *Quiz Controller
  *
@@ -93,6 +94,7 @@ class QuizController extends Controller
     {
       $obj = new QuizQuestion();
       $quiz = new Quiz();
+      $usr = new User();
       //echo $data;
       
      ///$form = new array();// $this->answerAction($request['questionId']);
@@ -103,33 +105,35 @@ class QuizController extends Controller
         ->getForm();*/
       //$form->bind($request);
       //echo($request);
-      if ($request->isMethod('POST')) {
-         $answer=$request->request->get('answer');   
-         $quiznum=$request->request->get('quiznum');
-         $question=$request->request->get('question');
-     // echo ($data);
-     // die;
-      //$data= $form->getData();
-      //var_dump ($data);
-      //die;
-      $user = $this->get('security.token_storage')->getToken()->getUser();
-      $em = $this->getDoctrine()->getManager();
-      $quiz->setUserid(User $user);
-      $em->persist($quiz);
-      $em->flush();
-      $qnum = $quiz->getQuiznum();
-      $obj->setQuiznum($qnum);//$quiznum);
-      $obj->setQuestionID($question); //$question['question_ID']);
-      $obj->setAnswer($data['answer']);
-     
-      return $this->selectorAction();
-	 }
-	 else {
+      if ($request->isMethod('POST')) 
+      {
+	$answer=$request->request->get('answer');   
+	$quiznum=$request->request->get('quiznum');
+	$question=$request->request->get('question');
+	/*
+	$user = $this->get('security.token_storage')->getToken()->getUser();
+	$em = $this->getDoctrine()->getManager();
+	$usr= $em->getRepository('SetupBundle:User')->find($user);
+	$quiz->setUserid($usr);
+	$em->persist($quiz);
+	$em->flush();
+	
+	$qnum = $em->getRepository('SetupBundle:Quiz')->find($quiznum);
+	$obj->setQuiznum($qnum);//$quiznum);
+	$obj->setQuestionID($question); //$question['question_ID']);
+	$obj->setAnswer($data['answer']);
+	$em->persist($obj);
+	$em->flush();*/
+      
+	return $this->selectorAction();
+      }
+	 else 
+	 {
       
       return $this->selectorAction();//render('QuizBundle::quiz.html.twig',array('object'=>$obj, 'form'=>$form->createView()
     } // )); 
-	    
-    }	
+
+ }	
    /** 
     * This function stores the quiz ID, question ID and answer
     * 
@@ -240,22 +244,30 @@ class QuizController extends Controller
    return $this->endAction("Quiz complete", $output);
     }
     /**
-     * This function is for calculating the IQ
-     *
+     * This function is for calculating the IQ of the user and adding it to the datbase
+     * @var intger $id
      *
      */
     public function IQAction($id){
+      $usr = new User();
       $em->getDoctrine()->getManager();
       $mean = $em->getRepository('SetupBundle:UserInfo')->findMean();
 
       $count = $em->getRepository('SetupBundle:UserInfo')->findCount();
       $std_dev = $em->getRepository('SetupBundle:UserInfo')->findStdDev();
       
-    $score = $em->getRrepository('SetupBundle:QuizResults')->getScore($id);//correct/num squestions;
+      $score = $em->getRrepository('SetupBundle:QuizResults')->getScore($id);//correct/num squestions;
       $zi = $score - $mean / $std_dev;
-      //IQunits = 100 + zi*15;
+      $IQunits = 100 + $zi*15;
       
-    
+      $user = $this->get('security.token_storage')->getToken()->getUser();
+      
+      $em = $this->getDoctrine()->getManager();
+      $usr= $em->getRepository('SetupBundle:User')->find($user);
+      $usr->setIq($IQunits);
+      $em->persist($usr);
+      $em->flush();
+      
     }
     
 }

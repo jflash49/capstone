@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfoundation/css/foundation.min.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfoundation/css/foundation.css') }}"/>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href ="{{ asset('bundles/DataTables-1.10.7/media/css/jquery.dataTables.css')}}">
     </head>
     <body>
      {% if app.session.flashBag.has('success') %}
@@ -28,9 +29,10 @@
         $(document).foundation();
         </script>
         <script src="{{ asset('bundles/bmatznerfoundation/js/foundation/foundation.dropdown.js') }}"></script>
-        <script>
+       <script type="text/javascript" src="{{ asset('bundles/DataTables-1.10.7/media/js/jquery.dataTables.js')}}"></script>
+       <script src="{{ asset('bundles/setup/js/datatab.js' ) }}"></script>
     
-  </script>
+  
         {% block javascripts %}
         
         

@@ -1,7 +1,7 @@
 Capstone\SetupBundle\Entity\Classification:
     type: entity
     table: Classification
-    repositoryClass: Capstone\SetupBundle\Entity\ClassficationRepository
+    repositoryClass: Capstone\SetupBundle\Entity\ClassificationRepository
     id:
         classificationIq:
             type: string
