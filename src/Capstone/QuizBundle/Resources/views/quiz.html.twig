@@ -14,14 +14,14 @@
   </div>
   <br>
   <div class="row">
-    <div class="large-12 columns" style="text-align:center; padding-top:5%">
-	<form action="{{ path('quiz_answer') }}" method="POST" id="answer" style="display:block;">
-	  <input type="radio" class="button round success" name="ans" value="A"> A</input>
-	  <input type="radio" class="button round success" name="ans" value="B"> B</input>
-	  <input type="radio" class="button round success" name="ans" value="C"> C</input>
-	  <input type="radio" class="button round success" name="ans" value="D"> D</input>
-	  <input type="radio" class="button round success" name="ans" value="E"> E</input>
-	  <input type="radio" class="button round success" name="ans" value="F"> F</input>
+    <div class="large-12 columns" style="text-align:center; padding-top:5%;">
+	<form action="/reply.json/" method="POST" id="answer" style="display:block;">
+	  <input type="radio" class="button round success" name="answer" value="A"> A</input>
+	  <input type="radio" class="button round success" name="answer" value="B"> B</input>
+	  <input type="radio" class="button round success" name="answer" value="C"> C</input>
+	  <input type="radio" class="button round success" name="answer" value="D"> D</input>
+	  <input type="radio" class="button round success" name="answer" value="E"> E</input>
+	  <input type="radio" class="button round success" name="answer" value="F"> F</input>
 	<br>
 	<input type="hidden" name="quiznum" value="{{ info.quiznum }}">
 	<input type="hidden" name="question" value="{{ info.question[0] }}">
@@ -54,18 +54,20 @@ $("#answer").submit(function(){
   alert ("ajax");
   var $form = $(this);
   var $inputs = $form.find("input, select, button, textarea");
+  var info = { 'quiznum':$(quiznum).val
   var serializedData = $form.serialize();
   alert(serializedData);
   console.log($inputs);
   $inputs.prop("disabled", true);
-  
+  var url1 = "/reply.json/";
   request = $.ajax({
-    url:"quiz_answer",
+    url:url1,
     type: "post",
-    data:serializedData
+    data: $.toJSON(serializedData)
     
     });
     alert(data);
+    alert(url1);
 
   });
     

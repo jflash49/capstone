@@ -86,38 +86,48 @@ class QuizController extends Controller
     * 
     * This method will get the answer if necessary...
     * 
-    * @Route("/reply/",name="quiz_answer")
+    * 
     * 
     */ 
-    public function getAnswerAction (Request $request)
+    public function getAnswerAction (Request $request, $format)
     {
       $obj = new QuizQuestion();
-      $defaultData =  array ();
+      $quiz = new Quiz();
+      //echo $data;
+      
      ///$form = new array();// $this->answerAction($request['questionId']);
-      $form = $this->createFormBuilder($defaultData)
+    /* $form = $this->createFormBuilder($defaultData)
         ->add('quiznum')
         ->add('question')
         ->add('answer')
-        ->getForm();
+        ->getForm();*/
+      //$form->bind($request);
+      //echo($request);
       if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-      //echo ($request);
+         $answer=$request->request->get('answer');   
+         $quiznum=$request->request->get('quiznum');
+         $question=$request->request->get('question');
+     // echo ($data);
      // die;
-      $data= $form->getData();
-      var_dump ($data);
-      die;
-      //$em = $this->getDoctrine()->getManager();
-     // $obj->setQuiz($data['quiznum']);//$quiznum);
-     // $obj->setQuestionId($data['questionId']); //$question['question_ID']);
-     // $obj->setAnswer($data['answer']);
-    //  $em->persist($entity);
-    //  $em->flush();
+      //$data= $form->getData();
+      //var_dump ($data);
+      //die;
+      $user = $this->get('security.token_storage')->getToken()->getUser();
+      $em = $this->getDoctrine()->getManager();
+      $quiz->setUserid(User $user);
+      $em->persist($quiz);
+      $em->flush();
+      $qnum = $quiz->getQuiznum();
+      $obj->setQuiznum($qnum);//$quiznum);
+      $obj->setQuestionID($question); //$question['question_ID']);
+      $obj->setAnswer($data['answer']);
+     
       return $this->selectorAction();
 	 }
 	 else {
       
       return $this->selectorAction();//render('QuizBundle::quiz.html.twig',array('object'=>$obj, 'form'=>$form->createView()
-    } // ));  
+    } // )); 
 	    
     }	
    /** 
@@ -241,8 +251,8 @@ class QuizController extends Controller
       $count = $em->getRepository('SetupBundle:UserInfo')->findCount();
       $std_dev = $em->getRepository('SetupBundle:UserInfo')->findStdDev();
       
-      $score = $em->getRrepository('SetupBundle:UserInfo')->getScore($id);//correct/num squestions;
-     //$zi = $score - $mean / $std_dev;
+    $score = $em->getRrepository('SetupBundle:QuizResults')->getScore($id);//correct/num squestions;
+      $zi = $score - $mean / $std_dev;
       //IQunits = 100 + zi*15;
       
     

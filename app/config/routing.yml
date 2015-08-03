@@ -50,6 +50,12 @@ user_routes:
 files:
    resource: "@FileBundle/Resources/config/routing.yml"
    prefix:   /file
+   
+quiz_answer:
+    pattern: "/reply.{format}/"
+    defaults: { _controller: "QuizBundle:Quiz:getAnswer", format:html }
+    requirements:
+        format: json
 # api:
 
 #    path: /api/
