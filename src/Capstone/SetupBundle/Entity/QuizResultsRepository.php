@@ -13,7 +13,11 @@ use Doctrine\ORM\EntityRepository;
 class QuizResultsRepository extends EntityRepository
 {
 
-
+    public function getScore($id)
+    {
+	return $this->getEntityManager()
+	    ->createQuery("Select B.correct_question from SetupBundle:Quiz A JOIN SetupBundle:QuizResult B where A.quiznum =B.quiznum and A,UserID ='".$id."'")->getResult();
+    }
 
 
 }

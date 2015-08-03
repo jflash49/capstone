@@ -51,7 +51,7 @@ class Document
         return '/var/www/html/FunQ/web/'.$this->getUploadDir();
     }
 
-    protected function getUploadDir()
+    public function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
@@ -214,7 +214,7 @@ class Document
     
      public function __toString()
     {
-	  return (string)$this->getUploadDir().'/'.$this->getId().'.'.$this->getPath();;
+	  return (string)$this->getName().'.'.$this->getPath();;
     }
     
 }

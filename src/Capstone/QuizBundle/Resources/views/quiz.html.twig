@@ -5,18 +5,73 @@
 {% block body %}
 <div class="row">
 <div class="large-12 columns">
+  <p> Question #count <br>{{  info.question[1] | raw }} </p>
+  
+  <div class="image">
+    <div class="large-12 columns">
+	<img src="{{ info.question[2] }}" style=" width:100%; height:300px; " alt ="Image" ></>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="large-12 columns" style="text-align:center; padding-top:5%">
+	<form action="{{ path('quiz_answer') }}" method="POST" id="answer" style="display:block;">
+	  <input type="radio" class="button round success" name="ans" value="A"> A</input>
+	  <input type="radio" class="button round success" name="ans" value="B"> B</input>
+	  <input type="radio" class="button round success" name="ans" value="C"> C</input>
+	  <input type="radio" class="button round success" name="ans" value="D"> D</input>
+	  <input type="radio" class="button round success" name="ans" value="E"> E</input>
+	  <input type="radio" class="button round success" name="ans" value="F"> F</input>
+	<br>
+	<input type="hidden" name="quiznum" value="{{ info.quiznum }}">
+	<input type="hidden" name="question" value="{{ info.question[0] }}">
+	<div class="large-6 columns" style="text-align:center; margin-left:25%;padding-top:5%; ">
+	<input type="submit" class="button expand success" name="Submit" value="Submit">  </input>
+	</div>
+	</form>
 
+    </div>
+  </div>
 {% block feed %}
-{#{render (controller ('QuizBundle:Quiz:getAnswer')) }#}
-  {{ end }} , {{ info.quiznum }}, {{info.question[0]}}{#{ attribute(array,0)  }#}
+{#render (controller ('QuizBundle:Quiz:getAnswer')) #}
+  {{ end }} , {{ info.quiznum }}, {{info.question[2]}}{#{ attribute(array,0)  }#}
 {% endblock %}
 </div>
     </div>
 {% endblock %}
-{% block javascript %}
-<script >
+{% block javascripts %}
+
+<script type="text/javascript">
 var quest_type = new Array('visualization','classification','spatial','mathematical','logic','pattern recognition','verbal');
-var qtype =new Array();
+var qtype = [];
+
+var request;
+
+$(document).ready(function(){
+  console.log("READY");
+});
+$("#answer").submit(function(){
+  alert ("ajax");
+  var $form = $(this);
+  var $inputs = $form.find("input, select, button, textarea");
+  var serializedData = $form.serialize();
+  alert(serializedData);
+  console.log($inputs);
+  $inputs.prop("disabled", true);
+  
+  request = $.ajax({
+    url:"quiz_answer",
+    type: "post",
+    data:serializedData
+    
+    });
+    alert(data);
+
+  });
+    
+    
+    
+
 </script>
 
 

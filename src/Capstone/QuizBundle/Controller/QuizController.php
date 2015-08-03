@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Capstone\SetupBundle\Entity\Question;
 use Capstone\SetupBundle\Entity\QuizResults;
+use Capstone\SetupBundle\Entity\QuizQuestion;
+use Capstone\SetupBundle\Entity\Quiz;
 /**
  *Quiz Controller
  *
@@ -20,6 +22,7 @@ class QuizController extends Controller
 {
    
     /**
+    * $user = $this->get('security.token_storage')->getToken()->getUser(); /// to get user
     * This function will start the quiz selection process
     * return none
     * @Route("/start/",name="start_quiz")
@@ -64,35 +67,57 @@ class QuizController extends Controller
      * @return boolean $mark
      */ 
     public function answerAction($quiznum, $question){
-	$mark = true;
-	$obj = new QuizQuestion();
-	$obj->setParameter('quiznum', $quiznum);
-	$obj->setParmeter('question_ID', $question['question_ID']);
-	$form = $this->createForm(new QuizQuestionType(), $obj);
-	$form->handleRequest($request);	
+	$obj = array ('quiznum'=> $quiznum, 'question'=> $question);
+	$form = $this->createForm(new QuizQuestionType(), $obj, array('action'=>$this->gemerateurl('start_quiz'),'method'=>'POST'));
+	//$form->handleRequest($request);	
 	/*if($form->isValid()){
 		$em= $this->getDoctrine()->getManager();
 		$em->persist($obj);*/
-			$answer = $_POST['answer'];
-			if ($answer!= $question['answer'])
-				{
-					$mark = false;				
-				}
+			//$answer = $_POST['answer'];
+			//if ($answer!= $question['answer'])
+			//	{
+			//		$mark = false;				
+			//	}
 			//$this->storeAction($quiznum, $question['question_ID'], $answer,$mark);
-			return $mark;
-		//}
-		//else {
-		//	throw new \Exception ("No answer");
-		//}
+			return $form;
+	//}
     }
   /**
     * 
     * This method will get the answer if necessary...
     * 
+    * @Route("/reply/",name="quiz_answer")
+    * 
     */ 
-    public function getAnswerAction (Request $request){
-    
-    return new Response("<p>Got the answer</p>");
+    public function getAnswerAction (Request $request)
+    {
+      $obj = new QuizQuestion();
+      $defaultData =  array ();
+     ///$form = new array();// $this->answerAction($request['questionId']);
+      $form = $this->createFormBuilder($defaultData)
+        ->add('quiznum')
+        ->add('question')
+        ->add('answer')
+        ->getForm();
+      if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+      //echo ($request);
+     // die;
+      $data= $form->getData();
+      var_dump ($data);
+      die;
+      //$em = $this->getDoctrine()->getManager();
+     // $obj->setQuiz($data['quiznum']);//$quiznum);
+     // $obj->setQuestionId($data['questionId']); //$question['question_ID']);
+     // $obj->setAnswer($data['answer']);
+    //  $em->persist($entity);
+    //  $em->flush();
+      return $this->selectorAction();
+	 }
+	 else {
+      
+      return $this->selectorAction();//render('QuizBundle::quiz.html.twig',array('object'=>$obj, 'form'=>$form->createView()
+    } // ));  
 	    
     }	
    /** 
@@ -102,24 +127,32 @@ class QuizController extends Controller
     * 		integer $questionid,
     * 		string  $answer 
     * @return none
-    */ 
-    public function storeAction ($quiznum, $questionid, $answer,$mark) {
-		$result = new QuizResult();
-		$result = setQuiznum($quiznum);
-		$em = $this->getDoctrine()->getManager();
+    *
+    public function storeAction ($quizquestion, $quizresult, $quiznum, $questionid, $answer,$mark) {
 		
-		    //insert into quizquestion values ($quiznum, $questionid, $answer)
-		    
-			//	insert into quizresults (quiznum)
-			//if mark =true
-			//	update quizresults 
-			//$result = setQuiznum($quiznum);correct_questions = correct_questions +1
-			//where quiznum = quiznum
-			//else
-			//update quizresults 
-			//		set incorrect_questions = incorrect_questions +1
-			//where quiznum = quiznum
-    }
+		$em = $this->getDoctrine()->getManager();
+    
+		$quizquestion->setQuiz($quiznum)
+		$quizquestion->setQuestionId($questionid);
+		$quizquestion->setAnswer($answer);
+		$em->persist($quizquestion);
+		$em->flush();
+		$quizresult->setQuiznum($quiznum);
+		$correct = $quizresult->getCorrect()
+		$incorrect = $quizresult->getIncorrect();
+		
+		if ($mark == true) {
+		  $correct++;
+		  $quizresult->setCorrect($correct);
+		}
+		else{
+		  $incorrect++;
+		  $quizresult->setIncorrect($incorrect);
+		}
+		$em->persist($quizresult);
+		$em->flush();
+		
+    }*/
    /**
     *  This function ends the current quiz
     * 
@@ -143,7 +176,9 @@ class QuizController extends Controller
 	    $rsm = new ResultSetMapping();
 	    $rsm->addScalarResult('quiznum', 'a');
 	    $em= $this->getDoctrine()->getManager();
-	    $quiznum = $em->getRepository('SetupBundle:Quiz')->findNextQuizNumber();	
+	    
+	    $quiznum = $em->getRepository('SetupBundle:Quiz')->findNextQuizNumber();
+	    
 	    $quest_type = array('visualization','classification','spatial','mathematical','logic','pattern recognition','verbal');
 	    $qtype = array();
 	    // for ($i = 0 ; $i <14; $i ++){
@@ -161,7 +196,7 @@ class QuizController extends Controller
 	      // unset($quest_type[array_search($type,$quest_type)]);
 	      
 	      // $pass = $this->answerAction($quiznum[0]['a'], $questionobj);
-	      if ($quest == 'm'&& $pass==false) {
+	     /* if ($quest == 'm'&& $pass==false) {
 		      $quest='l'; $points='<=2';
 		      }
 	      if ($quest == 'm'&& $pass==true ){
@@ -179,7 +214,7 @@ class QuizController extends Controller
 	      if ($quest == 'h'&& $pass==true){
 		      $quest='h';$points='>3';
 		      }
-	      
+	      */
 	      //array_push($questioncnt, $questionobj->getQuestionId());
     //   }
   ////    else
@@ -204,11 +239,11 @@ class QuizController extends Controller
       $mean = $em->getRepository('SetupBundle:UserInfo')->findMean();
 
       $count = $em->getRepository('SetupBundle:UserInfo')->findCount();
-      $std_dev = $em->getRepository('SetupBundle:UserInfo')->findStdDev->();
+      $std_dev = $em->getRepository('SetupBundle:UserInfo')->findStdDev();
       
-      $score = $em->getRrepository('SetupBundle:UserInfo')->getScore()//correct/num squestions;
-      $zi = $score - $mean / $std_dev;
-      IQunits = 100 + zi*15;
+      $score = $em->getRrepository('SetupBundle:UserInfo')->getScore($id);//correct/num squestions;
+     //$zi = $score - $mean / $std_dev;
+      //IQunits = 100 + zi*15;
       
     
     }

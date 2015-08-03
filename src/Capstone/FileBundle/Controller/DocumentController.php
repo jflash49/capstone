@@ -96,7 +96,7 @@ class DocumentController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('FileBundle:Document')->find($id);
-	$path = $entity->getUploadRootDir().'/'.$entity->getId().'.'.$entity->getPath();
+	$path = $entity->__toString();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Document entity.');
         }

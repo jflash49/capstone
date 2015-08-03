@@ -27,4 +27,6 @@ class QuizQuestionRepository extends EntityRepository
 				AND C.userid = '".$id."'",$rsm)->getResult();
 
     }
+    
+  
 }

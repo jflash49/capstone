@@ -1,6 +1,7 @@
-{% extends '::base.html.twig' %}
-
+{% extends '::admin/layout.html.twig' %}
 {% block body -%}
+<div class="row">
+<div class="large-12 columns">
     <h1>Document creation</h1>
 
     {{ form(form) }}
@@ -12,4 +13,6 @@
         </a>
     </li>
 </ul>
+</div>
+    </div>
 {% endblock %}
