@@ -2,7 +2,7 @@
 **FunQ**
 ====
 #_Student Evaluation System_
----
+
 **What is FunQ?**
 ===
  FunQ is a student evaluation system developed to compliment the Jamaican Grade 4 literacy and numeracy examination. -
