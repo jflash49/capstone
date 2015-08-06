@@ -53,7 +53,7 @@ Requirements
 
 FunQ System has several dependencies that are essential to running the system
 
-KNOWN ISSUES
+Known Issues
 ===
 
   The FunQ system has been in development for 22 days and is currently still in the development. As a result
