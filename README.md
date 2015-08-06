@@ -75,11 +75,13 @@ Follow the steps to setup the system.
 
 - navigate to the application directory and run 
 
-	composer update
-this should install the relevant components te system requires
+	**composer update**
+	
+This should install the relevant components the system requires
 
 - You will be prompted to enter your database configuration
-do so accordingly
+do so accordingly. If you choose not too, you can add the configuration in the 
+**_app/config/parameters.yml_** file at any time
 
 Known Issues
 ---
