@@ -39,13 +39,19 @@ To start the application
 
  - navigate to the *root* of the application folder
  - use this command to start the application server
- 		** app/console server:run **
+ 
+ 		**app/console server:run**
+
  This server will prompt the ip address and port number on which it is hosting
  - open your browser and navigate to the server
- 	*example:***http://localhost:8000/ **
+ 
+ 	*example:* **http://localhost:8000/**
+
  - The FunQ homepage should become available
  - The default administrator login is:
- 	* admin : admin123 *
+ 
+ 	*admin : admin123*
+
  - Once logged in you have access to all the system features.
 
 Requirements
