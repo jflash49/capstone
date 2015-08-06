@@ -30,7 +30,7 @@ similarities and differences between them. These skills enable the student to in
 relevant data and gain a better general understanding of the world.
 
 
-HOW TO RUN FUNQ
+How To Run FunQ
 ===
 
 Fun Q was developed on the symfony php framework many of the systems features can be modified. 
