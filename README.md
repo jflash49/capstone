@@ -54,17 +54,15 @@ Requirements
 FunQ System has several dependencies that are essential to running the system
 
 KNOWN ISSUES
- ===
+===
 
   The FunQ system has been in development for 22 days and is currently still in the development. As a result
   some of the systems features have yet to be fine tuned, however many of the basic features are operational.
   The follwing features will cause problems when being accessed.
-
   	- User Create Page (user roles causing an issue)
   	- Document Uploads and Edit Page (all documents retain the extension 'initial' regardless of document type)
   	- The Quiz component
   	- Downloading template to PDF (Images may not appear on document)
-
   These features are currently being developed and debugged.
 
 
