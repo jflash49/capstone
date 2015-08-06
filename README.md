@@ -67,11 +67,11 @@ Follow the steps to setup the system.
 
   **On Windows**
   
-   *c:/www/*
+   **_c:/www/_**
   
   **On Linux**
   
-  _/var/www/html_
+  **_/var/www/html_**
 
 - navigate to the application directory and run 
 
