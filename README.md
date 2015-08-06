@@ -57,7 +57,27 @@ To start the application
 Requirements
 ---
 
-FunQ System has several dependencies that are essential to running the system
+FunQ System has several dependencies that are essential to running the system.
+Follow the steps to setup the system.
+- Ensure [composer](https://getcomposer.org/doc/00-intro.md) installed on your system. If  not follow the instructions to install composer at 
+   
+  https://getcomposer.org/doc/00-intro.md
+
+- Copy the system to your server web directory
+
+  **On Windows**
+   *c:/www/*
+  
+  **On Linux**
+  _/var/www/html_
+
+- navigate to the application directory and run 
+
+	composer update
+this should install the relevant components te system requires
+
+- You will be prompted to enter your database configuration
+do so accordingly
 
 Known Issues
 ---
