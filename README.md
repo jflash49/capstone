@@ -66,9 +66,11 @@ Follow the steps to setup the system.
 - Copy the system to your server web directory
 
   **On Windows**
+  
    *c:/www/*
   
   **On Linux**
+  
   _/var/www/html_
 
 - navigate to the application directory and run 
