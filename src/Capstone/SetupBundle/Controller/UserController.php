@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Capstone\SetupBundle\Entity\User;
 use Capstone\SetupBundle\Form\UserType;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * User controller.
  *

@@ -36,7 +36,7 @@ class SecurityController extends Controller
         // get the login error if there is one
         $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
         $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
-        
+      
 
        // return $this->render(
        //     'AcmeSecurityBundle:Security:login.html.twig',

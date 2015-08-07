@@ -12,7 +12,7 @@
     </head>
     <body>
      {% if app.session.flashBag.has('success') %}
-        <div class="alert alert-success">
+        <div data-alert class="alert-box success">
             {% for msg in app.session.flashBag.get('success') %}
                 {{ msg }}
             {% endfor %}

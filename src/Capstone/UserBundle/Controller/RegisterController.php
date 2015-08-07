@@ -51,7 +51,7 @@ class RegisterController extends Controller
                  $url = $session->get($key);
                  $session->remove($key);
              } else {
-                 $url = $this->generateUrl('login_form');
+                 $url = $this->generateUrl('home');
             }//$url = $this->generateUrl('user');
             return $this->redirect($url);
         }
