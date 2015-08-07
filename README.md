@@ -29,31 +29,6 @@ conclusion.
 similarities and differences between them. These skills enable the student to interpret
 relevant data and gain a better general understanding of the world.
 
-
-How To Run FunQ
----
-
-Fun Q was developed on the symfony php framework many of the systems features can be modified. 
-Interacting with the system is the same process with many symfony2 applications.
-To start the application
-
- - navigate to the *root* of the application folder
- - use this command to start the application server
- 
- 		app/console server:run
-
- This server will prompt the ip address and port number on which it is hosting
- - open your browser and navigate to the server
- 
- 	*example:* **http://localhost:8000/**
-
- - The FunQ homepage should become available
- - The default administrator login is:
- 
- 	**admin : admin123**
-
- - Once logged in you have access to all the system features.
-
 Requirements
 ---
 
@@ -82,6 +57,30 @@ This should install the relevant components the system requires
 - You will be prompted to enter your database configuration
 do so accordingly. If you choose not too, you can add the configuration in the 
 **_app/config/parameters.yml_** file at any time
+
+How To Run FunQ
+---
+
+Fun Q was developed on the symfony php framework many of the systems features can be modified. 
+Interacting with the system is the same process with many symfony2 applications.
+To start the application
+
+ - navigate to the *root* of the application folder
+ - use this command to start the application server
+ 
+ 		app/console server:run
+
+ This server will prompt the ip address and port number on which it is hosting
+ - open your browser and navigate to the server
+ 
+ 	*example:* **http://localhost:8000/**
+
+ - The FunQ homepage should become available
+ - The default administrator login is:
+ 
+ 	**admin : admin123**
+
+ - Once logged in you have access to all the system features.
 
 Known Issues
 ---
